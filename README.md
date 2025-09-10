@@ -1,10 +1,10 @@
-Municipal Services Application - PROG7312 POE Part 1
-📌 Project Overview
+**Municipal Services Application - PROG7312 POE Part 1
+📌 Project Overview**
 
 This is a C# ASP.NET Core web application developed for PROG7312 POE Part 1, implementing a Municipal Services Portal for South African municipalities.
 The application focuses on the "Report Issues" functionality using advanced data structures as specified in the POE requirements.
 
-👨‍🎓 Student Information
+👨‍🎓 **Student Information**
 
 Module: PROG7312 - Programming 3B / AAPD7112 - Advanced Application Development
 
@@ -14,8 +14,8 @@ POE Part: 1 of 3
 
 Implementation Status: ✅ Part 1 Complete - Report Issues Feature
 
-🚀 Features Implemented (Part 1)
-Core Functionality
+🚀** Features Implemented (Part 1)
+Core Functionality**
 
 Report Issues Module: Fully functional issue reporting system
 

@@ -74,31 +74,7 @@ Authentication: ASP.NET Core Identity (optional, not required for POE)
 
 File Structure: Standard MVC pattern (Models, Views, Controllers)
 
-📂 Project Structure
-MunicipalServiceApp-PROG7312/
-├── Controllers/
-│   └── HomeController.cs           # Main controller with data structure logic
-├── Models/
-│   ├── Issue.cs                    # Issue model and data structures
-│   ├── ReportIssueViewModel.cs     # Form binding model
-│   └── ErrorViewModel.cs           # Error handling model
-├── Views/
-│   ├── Home/
-│   │   ├── Index.cshtml            # Main menu (3 options, 2 disabled)
-│   │   ├── ReportIssue.cshtml      # Issue reporting form
-│   │   └── IssueSubmitted.cshtml   # Success confirmation page
-│   └── Shared/
-│       └── _Layout.cshtml          # Master layout template
-├── wwwroot/
-│   ├── css/
-│   │   └── site.css                # Custom styling
-│   ├── js/
-│   │   └── site.js                 # Client-side functionality
-│   └── uploads/                    # File upload directory
-├── Data/
-│   └── ApplicationDbContext.cs     # Entity Framework context (for Identity)
-├── Program.cs                      # Application configuration
-└── README.md                       # This documentation file
+
 
 ⚙️ Installation and Setup
 Prerequisites

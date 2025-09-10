@@ -29,8 +29,8 @@ Form Validation: Comprehensive client-side and server-side validation
 
 Smart Category Suggestions: Auto-suggests categories based on location keywords
 
-📚 Data Structures Utilized
-1. LinkedList
+**📚 Data Structures Utilized
+1. LinkedList**
 
 Purpose: Primary storage for all submitted issues
 
@@ -40,7 +40,7 @@ Operations: Add, traverse, search by ID, category filtering
 
 Benefits: Efficient insertion/deletion, dynamic memory allocation
 
-2. Stack (LIFO)
+**2. Stack (LIFO)**
 
 Purpose: Track recently submitted issues
 
@@ -50,7 +50,7 @@ Operations: Push new issues, peek for most recent
 
 Benefits: Quick access to latest submissions
 
-3. Queue (FIFO)
+**3. Queue (FIFO)**
 
 Purpose: Manage processing order for municipal departments
 
@@ -60,7 +60,7 @@ Operations: Enqueue new issues, peek next for processing
 
 Benefits: Ensures first-come-first-served processing
 
-🛠️ Technical Specifications
+**🛠️ Technical Specifications**
 
 Technology Stack
 
@@ -76,8 +76,8 @@ File Structure: Standard MVC pattern (Models, Views, Controllers)
 
 
 
-⚙️ Installation and Setup
-Prerequisites
+**⚙️ Installation and Setup
+Prerequisites**
 
 Visual Studio 2022 or later
 
@@ -118,8 +118,8 @@ Press F5 or click Start
 
 App runs at: https://localhost:[port]/
 
-🖥️ Usage Instructions
-Main Menu Navigation
+**🖥️ Usage Instructions
+Main Menu Navigation**
 
 Report Issues (Active - Part 1)
 
@@ -153,8 +153,8 @@ Validation ensures all required data
 
 Success page displays issue details + data structure analytics
 
-🔮 Future Development (Parts 2 & 3)
-Part 2 - Local Events & Announcements
+**🔮 Future Development (Parts 2 & 3)
+Part 2 - Local Events & Announcements**
 
 Hash Tables for categorization
 

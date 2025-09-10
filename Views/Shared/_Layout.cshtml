@@ -1,0 +1,484 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Municipal Services Portal</title>
+    <meta name="description" content="Municipal Services Portal - PROG7312 POE Part 1 Implementation">
+    <meta name="keywords" content="municipal services, report issues, South Africa, PROG7312, POE">
+    <meta name="author" content="PROG7312 Student">
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Font Awesome Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="~/css/site.css" rel="stylesheet" type="text/css" />
+
+   
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="~/favicon.ico">
+
+    <!-- Additional Meta Tags for PWA support -->
+    <meta name="theme-color" content="#1976d2">
+    <meta name="msapplication-navbutton-color" content="#1976d2">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+</head>
+<body>
+    <!-- Navigation Header -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+        <div class="container">
+            <!-- Brand Logo -->
+            <a class="navbar-brand d-flex align-items-center" href="@Url.Action("Index", "Home")">
+                <i class="fas fa-city me-2"></i>
+                <span>Municipal Services Portal</span>
+            </a>
+
+            <!-- Mobile Toggle Button -->
+            <button class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav"
+                    aria-controls="navbarNav"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Navigation Menu -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link @(ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")"
+                           href="@Url.Action("Index", "Home")">
+                            <i class="fas fa-home me-1"></i>Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @(ViewContext.RouteData.Values["Action"].ToString() == "ReportIssue" ? "active" : "")"
+                           href="@Url.Action("ReportIssue", "Home")">
+                            <i class="fas fa-tools me-1"></i>Report Issues
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled"
+                           href="#"
+                           tabindex="-1"
+                           aria-disabled="true"
+                           title="Available in POE Part 2">
+                            <i class="fas fa-calendar-alt me-1"></i>Local Events
+                            <small class="badge bg-warning text-dark ms-1">Part 2</small>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled"
+                           href="#"
+                           tabindex="-1"
+                           aria-disabled="true"
+                           title="Available in POE Part 3">
+                            <i class="fas fa-chart-bar me-1"></i>Service Status
+                            <small class="badge bg-secondary ms-1">Part 3</small>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main role="main" style="margin-top: 80px; min-height: calc(100vh - 160px);">
+        <!-- Success/Error Messages -->
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="container mt-3">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <i class="fas fa-check-circle me-2"></i>
+                    @TempData["SuccessMessage"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+        }
+
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="container mt-3">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    @TempData["ErrorMessage"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+        }
+
+        @if (TempData["InfoMessage"] != null)
+        {
+            <div class="container mt-3">
+                <div class="alert alert-info alert-dismissible fade show" role="alert">
+                    <i class="fas fa-info-circle me-2"></i>
+                    @TempData["InfoMessage"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+        }
+
+        <!-- Page Content -->
+        @RenderBody()
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer-custom mt-auto">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <p class="mb-0">
+                        &copy; @DateTime.Now.Year Municipal Services Portal.
+                        Building better communities together.
+                    </p>
+                    <small class="text-muted">
+                        PROG7312 POE Implementation - Advanced Data Structures
+                    </small>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <div class="d-flex justify-content-md-end justify-content-center align-items-center">
+                        <span class="me-3">
+                            <small class="text-muted">Powered by:</small>
+                        </span>
+                        <div class="d-flex gap-2">
+                            <span class="data-structure-badge">LinkedList</span>
+                            <span class="data-structure-badge">Stack</span>
+                            <span class="data-structure-badge">Queue</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- POE Status Bar -->
+            <hr class="my-3 opacity-25">
+            <div class="row">
+                <div class="col-12">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <small class="text-muted">
+                            <i class="fas fa-graduation-cap me-1"></i>
+                            Academic Project - PROG7312 Portfolio of Evidence
+                        </small>
+                        <div class="d-flex gap-2">
+                            <small class="badge bg-success">Part 1: Complete</small>
+                            <small class="badge bg-warning text-dark">Part 2: Pending</small>
+                            <small class="badge bg-secondary">Part 3: Pending</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Loading Indicator -->
+    <div class="loading-overlay" id="globalLoadingOverlay" style="display: none;">
+        <div class="text-center">
+            <div class="spinner-border text-primary mb-3" role="status" style="width: 3rem; height: 3rem;">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="text-muted">Processing your request...</p>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button type="button"
+            class="btn btn-primary btn-floating position-fixed bottom-0 end-0 m-3"
+            id="btn-back-to-top"
+            style="display: none; border-radius: 50%; width: 50px; height: 50px; z-index: 1000;">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- JavaScript Libraries -->
+    <!-- jQuery (required for bootstrap and custom functionality) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+
+    <!-- Bootstrap 5 JavaScript Bundle -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script src="~/js/site.js"></script>
+
+    <!-- Page-specific Scripts -->
+    @RenderSection("scripts", required: false)
+
+    <!-- Global JavaScript Initialization -->
+    <script type="text/javascript">
+        $(document).ready(function() {
+            // Initialize tooltips
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+
+            // Initialize back to top button
+            initializeBackToTop();
+
+            // Initialize disabled link handlers
+            initializeDisabledFeatures();
+
+            // Initialize global error handling
+            initializeErrorHandling();
+        });
+
+        function initializeBackToTop() {
+            const backToTopBtn = document.getElementById('btn-back-to-top');
+
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    backToTopBtn.style.display = 'block';
+                } else {
+                    backToTopBtn.style.display = 'none';
+                }
+            });
+
+            backToTopBtn.addEventListener('click', function() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
+
+        function initializeDisabledFeatures() {
+            // Handle clicks on disabled navigation items
+            $('.nav-link.disabled').on('click', function(e) {
+                e.preventDefault();
+                const featureName = $(this).find('i').next().text().trim();
+                const partNumber = $(this).find('.badge').text();
+
+                showFeatureNotAvailableModal(featureName, partNumber);
+            });
+        }
+
+        function showFeatureNotAvailableModal(featureName, partNumber) {
+            const modalHtml = `
+                <div class="modal fade" id="featureNotAvailableModal" tabindex="-1" aria-labelledby="featureModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header bg-warning text-dark">
+                                <h5 class="modal-title" id="featureModalLabel">
+                                    <i class="fas fa-construction me-2"></i>Feature Under Development
+                                </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body text-center">
+                                <i class="fas fa-tools fa-4x text-warning mb-3"></i>
+                                <h6>The "${featureName}" feature is currently under development</h6>
+                                <p class="text-muted mb-3">
+                                    This feature will be implemented in <strong>${partNumber}</strong> of the POE project as part of the advanced data structures curriculum.
+                                </p>
+                                <div class="alert alert-info">
+                                    <small>
+                                        <i class="fas fa-info-circle me-1"></i>
+                                        Currently available: <strong>Report Issues</strong> with LinkedList, Stack, and Queue implementations.
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                    <i class="fas fa-times me-1"></i>Close
+                                </button>
+                                <a href="${'@Url.Action("ReportIssue", "Home")'}" class="btn btn-primary">
+                                    <i class="fas fa-tools me-1"></i>Try Report Issues
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Remove existing modal if present
+            $('#featureNotAvailableModal').remove();
+
+            // Add modal to body and show
+            $('body').append(modalHtml);
+            const modal = new bootstrap.Modal(document.getElementById('featureNotAvailableModal'));
+            modal.show();
+
+            // Clean up modal after it's hidden
+            $('#featureNotAvailableModal').on('hidden.bs.modal', function() {
+                $(this).remove();
+            });
+        }
+
+        function initializeErrorHandling() {
+            // Global AJAX error handler
+            $(document).ajaxError(function(event, xhr, settings) {
+                console.log('AJAX Error:', xhr.status, xhr.statusText);
+
+                if (xhr.status === 404) {
+                    showErrorToast('Feature temporarily unavailable', 'warning');
+                } else if (xhr.status === 500) {
+                    showErrorToast('Server error occurred', 'danger');
+                } else if (xhr.status === 0) {
+                    showErrorToast('Connection error', 'warning');
+                }
+            });
+
+            // Global form submission error handling
+            $('form').on('submit', function() {
+                // Add a timeout to show loading if submission takes too long
+                const form = $(this);
+                const submitBtn = form.find('button[type="submit"]');
+
+                setTimeout(function() {
+                    if (submitBtn.prop('disabled')) {
+                        $('#globalLoadingOverlay').fadeIn();
+                    }
+                }, 1000);
+            });
+        }
+
+        function showErrorToast(message, type = 'info') {
+            const toastHtml = `
+                <div class="toast align-items-center text-white bg-${type} border-0 position-fixed top-0 end-0 m-3"
+                     role="alert" aria-live="assertive" aria-atomic="true" style="z-index: 9999;">
+                    <div class="d-flex">
+                        <div class="toast-body">
+                            <i class="fas fa-info-circle me-2"></i>${message}
+                        </div>
+                        <button type="button" class="btn-close btn-close-white me-2 m-auto"
+                                data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                </div>
+            `;
+
+            $('body').append(toastHtml);
+            const toastElement = $('.toast').last()[0];
+            const toast = new bootstrap.Toast(toastElement, { delay: 4000 });
+            toast.show();
+
+            // Clean up after toast is hidden
+            toastElement.addEventListener('hidden.bs.toast', function() {
+                $(this).remove();
+            });
+        }
+
+        // Accessibility enhancements
+        $(document).on('keydown', function(e) {
+            // ESC key to close modals
+            if (e.key === 'Escape') {
+                $('.modal').modal('hide');
+            }
+
+            // Ctrl+H for help/about
+            if (e.ctrlKey && e.key === 'h') {
+                e.preventDefault();
+                showHelpModal();
+            }
+        });
+
+        function showHelpModal() {
+            const helpModalHtml = `
+                <div class="modal fade" id="helpModal" tabindex="-1" aria-labelledby="helpModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                        <div class="modal-content">
+                            <div class="modal-header bg-primary text-white">
+                                <h5 class="modal-title" id="helpModalLabel">
+                                    <i class="fas fa-question-circle me-2"></i>Help & About
+                                </h5>
+                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h6><i class="fas fa-info-circle me-2 text-primary"></i>About This Application</h6>
+                                        <p class="small">
+                                            This is a Municipal Services Portal developed for PROG7312 POE Part 1.
+                                            The application demonstrates advanced data structure implementations including
+                                            LinkedList, Stack, and Queue operations.
+                                        </p>
+
+                                        <h6><i class="fas fa-keyboard me-2 text-primary"></i>Keyboard Shortcuts</h6>
+                                        <ul class="small">
+                                            <li><kbd>Ctrl</kbd> + <kbd>H</kbd> - Show this help dialog</li>
+                                            <li><kbd>Esc</kbd> - Close modal dialogs</li>
+                                            <li><kbd>Alt</kbd> + <kbd>H</kbd> - Go to home page</li>
+                                            <li><kbd>Alt</kbd> + <kbd>R</kbd> - Go to report issues</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6><i class="fas fa-database me-2 text-success"></i>Data Structures Used</h6>
+                                        <ul class="small">
+                                            <li><strong>LinkedList:</strong> Dynamic issue storage</li>
+                                            <li><strong>Stack:</strong> Recent issues tracking (LIFO)</li>
+                                            <li><strong>Queue:</strong> Processing order (FIFO)</li>
+                                        </ul>
+
+                                        <h6><i class="fas fa-graduation-cap me-2 text-warning"></i>POE Status</h6>
+                                        <ul class="small">
+                                            <li><span class="badge bg-success me-2">Part 1</span>Report Issues - Complete</li>
+                                            <li><span class="badge bg-warning text-dark me-2">Part 2</span>Local Events - Pending</li>
+                                            <li><span class="badge bg-secondary me-2">Part 3</span>Service Status - Pending</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            $('#helpModal').remove();
+            $('body').append(helpModalHtml);
+            const modal = new bootstrap.Modal(document.getElementById('helpModal'));
+            modal.show();
+
+            $('#helpModal').on('hidden.bs.modal', function() {
+                $(this).remove();
+            });
+        }
+
+        // Keyboard navigation shortcuts
+        $(document).on('keydown', function(e) {
+            if (e.altKey) {
+                switch(e.key) {
+                    case 'h':
+                        e.preventDefault();
+                        window.location.href = '@Url.Action("Index", "Home")';
+                        break;
+                    case 'r':
+                        e.preventDefault();
+                        window.location.href = '@Url.Action("ReportIssue", "Home")';
+                        break;
+                }
+            }
+        });
+
+        // Performance monitoring
+        $(window).on('load', function() {
+            const loadTime = performance.now();
+            console.log(`Page loaded in ${Math.round(loadTime)}ms`);
+
+            // Hide any loading overlays
+            $('#globalLoadingOverlay').fadeOut();
+        });
+    </script>
+
+    <!-- Google Analytics or other tracking (if needed for production) -->
+    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script> -->
+    <!-- PWA Service Worker Registration (if implementing PWA features) -->
+    <script>
+        // Uncomment if implementing PWA features in future
+        /*
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js')
+                .then(function(registration) {
+                    console.log('SW registered: ', registration);
+                })
+                .catch(function(registrationError) {
+                    console.log('SW registration failed: ', registrationError);
+                });
+        }
+        */
+    </script>
+</body>
+</html>

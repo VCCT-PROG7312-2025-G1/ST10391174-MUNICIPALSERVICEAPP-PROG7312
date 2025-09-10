@@ -1,0 +1,173 @@
+﻿@model MunicipalServiceApp_PROG7312.Models.ReportIssueViewModel
+
+@{
+    ViewBag.Title = "Report Municipal Issue - POE Part 1";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card card-custom slide-up">
+                <div class="card-header text-white text-center py-5" style="background: linear-gradient(135deg, var(--primary-color), var(--primary-dark)); border-radius: 20px 20px 0 0;">
+                    <h2 class="mb-3">
+                        <i class="fas fa-tools me-3"></i>Report Municipal Issue
+                    </h2>
+                    <p class="mb-0 opacity-90">
+                        Help us improve your community by reporting issues 
+                    </p>
+                   
+                </div>
+                
+                <div class="card-body p-5">
+                    
+                   
+
+                    @using (Html.BeginForm("ReportIssue", "Home", FormMethod.Post, new { 
+                        @class = "needs-validation", 
+                        @novalidate = "novalidate", 
+                        enctype = "multipart/form-data", 
+                        @id = "issueForm" 
+                    }))
+                    {
+                        @Html.AntiForgeryToken()
+                        
+                        <div class="row">
+                            <!-- Location Input -->
+                            <div class="col-md-6 mb-4">
+                                <label class="form-label fw-bold">
+                                    <i class="fas fa-map-marker-alt me-2 text-primary"></i>Location *
+                                </label>
+                                @Html.TextBoxFor(m => m.Location, new { 
+                                    @class = "form-control form-control-custom", 
+                                    @placeholder = "Enter the specific location of the issue", 
+                                    @id = "locationInput",
+                                    @required = "required",
+                                    @maxlength = "100"
+                                })
+                                @Html.ValidationMessageFor(m => m.Location, "", new { @class = "text-danger small mt-1" })
+                            </div>
+
+                            <!-- Category Selection -->
+                            <div class="col-md-6 mb-4">
+                                <label class="form-label fw-bold">
+                                    <i class="fas fa-list me-2 text-primary"></i>Category *
+                                </label>
+                                @Html.DropDownListFor(m => m.Category, 
+                                    new SelectList(Model.Categories), 
+                                    "Select a category", 
+                                    new { 
+                                        @class = "form-select form-control-custom", 
+                                        @id = "categorySelect",
+                                        @required = "required"
+                                    })
+                                @Html.ValidationMessageFor(m => m.Category, "", new { @class = "text-danger small mt-1" })
+                            </div>
+                        </div>
+
+                        <!-- Description Box -->
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">
+                                <i class="fas fa-comment-alt me-2 text-primary"></i>Description *
+                            </label>
+                            @Html.TextAreaFor(m => m.Description, new { 
+                                @class = "form-control form-control-custom", 
+                                @rows = "5", 
+                                @placeholder = "Provide a detailed description of the issue (minimum 10 characters, maximum 500 characters)", 
+                                @id = "descriptionInput",
+                                @required = "required",
+                                @maxlength = "500"
+                            })
+                            <div class="form-text mt-2">
+                                <span id="charCount">0</span>/500 characters | 
+                                <span id="wordCount">0</span> words
+                            </div>
+                            @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger small mt-1" })
+                        </div>
+
+                        <!-- Media Attachment -->
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">
+                                <i class="fas fa-paperclip me-2 text-primary"></i>Attach Media File (Optional)
+                            </label>
+                            <div class="input-group">
+                                <input type="file" 
+                                       name="MediaFile" 
+                                       class="form-control form-control-custom" 
+                                       accept=".jpg,.jpeg,.png,.bmp,.gif,.pdf,.doc,.docx,.txt" 
+                                       id="mediaFile" />
+                                <button type="button" 
+                                        class="btn btn-outline-primary" 
+                                        id="previewBtn" 
+                                        style="display: none;">
+                                    <i class="fas fa-eye"></i> Preview
+                                </button>
+                            </div>
+                            <small class="form-text text-muted mt-2">
+                                <i class="fas fa-info-circle me-1"></i>
+                                Supported: Images (JPG, PNG, GIF, BMP) and Documents (PDF, DOC, DOCX, TXT) | Max size: 5MB
+                            </small>
+                            <div id="filePreview" class="mt-2" style="display: none;"></div>
+                        </div>
+
+                        <!-- Enhanced Engagement Progress Section -->
+                        <div class="mb-5 p-4 rounded-3" style="background: linear-gradient(135deg, #f8f9fa, #e9ecef); border: 1px solid #dee2e6;">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h6 class="fw-bold mb-0">
+                                    <i class="fas fa-chart-line me-2"></i>Form Completion Progress
+                                </h6>
+                                <span class="badge bg-primary" id="progressBadge">0% Complete</span>
+                            </div>
+                            <div class="progress progress-custom mb-3">
+                                <div class="progress-bar progress-bar-custom" 
+                                     id="progressBar" 
+                                     role="progressbar" 
+                                     style="width: 0%"
+                                     aria-valuenow="0" 
+                                     aria-valuemin="0" 
+                                     aria-valuemax="100"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <p class="engagement-message mb-0" id="engagementMessage">
+                                        Your civic participation makes a difference! Start reporting to improve our community.
+                                    </p>
+                                </div>
+                                
+                            </div>
+                        </div>
+
+                        <!-- Form Action Buttons -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <a href="@Url.Action("Index")" class="btn btn-outline-secondary btn-lg w-100">
+                                    <i class="fas fa-arrow-left me-2"></i>Back to Main Menu
+                                </a>
+                            </div>
+                            <div class="col-md-6">
+                                <button type="submit" class="btn btn-primary-custom btn-lg w-100" id="submitBtn">
+                                    <i class="fas fa-paper-plane me-2"></i>Submit Report
+                                    <span class="spinner-border spinner-border-sm ms-2" 
+                                          id="submitSpinner" 
+                                          style="display: none;" 
+                                          role="status" 
+                                          aria-hidden="true"></span>
+                                </button>
+                            </div>
+                        </div>
+                    }
+
+                    <!-- POE Requirements Information -->
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Loading Indicator -->
+<div class="loading-indicator">
+    <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>

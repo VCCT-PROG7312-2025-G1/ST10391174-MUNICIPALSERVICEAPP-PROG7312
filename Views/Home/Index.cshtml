@@ -1,0 +1,151 @@
+﻿@{
+    ViewBag.Title = "Municipal Services Portal - POE Part 1";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Hero Section -->
+<div class="hero-section">
+    <div class="container hero-content">
+        <h1 class="hero-title">Municipal Services Portal</h1>
+        <p class="hero-subtitle">
+            Your Gateway to Efficient Municipal Services 
+        </p>
+        <small class="text-white-50 d-block mt-3">
+            Part 1: Report Issues Feature 
+        </small>
+    </div>
+</div>
+
+<!-- Main Content -->
+<div class="container py-5">
+
+    <!-- POE Status Banner -->
+    <div class="alert alert-info mb-5" role="alert">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h5 class="alert-heading mb-2">
+                    <i class="fas fa-graduation-cap me-2"></i>PROG7312 POE Development Status
+                </h5>
+                <p class="mb-0">
+                    <strong>Part 1:</strong> Report Issues (Active) |
+                    <strong>Part 2:</strong> Local Events (Coming Soon) |
+                    <strong>Part 3:</strong> Service Status (Coming Soon)
+                </p>
+            </div>
+            <div class="col-md-4 text-end">
+                <span class="badge bg-success fs-6">Part 1 Complete</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Service Cards -->
+    <div class="row g-4">
+
+        <!-- Report Issues Card - ACTIVE -->
+        <div class="col-md-4">
+            <div class="card card-custom h-100">
+                <div class="card-body text-center p-4 position-relative">
+                    <!-- Active Badge -->
+                    <div class="position-absolute top-0 start-50 translate-middle">
+                        <span class="badge bg-success rounded-pill px-3 py-2">
+                            <i class="fas fa-check me-1"></i>ACTIVE
+                        </span>
+                    </div>
+
+                    <div class="mb-3 mt-3">
+                        <i class="fas fa-tools card-icon text-success"></i>
+                    </div>
+
+                    <h5 class="card-title">Report Issues</h5>
+                    <p class="card-text">
+                        Report municipal issues and service requests 
+                    </p>
+
+                  
+
+                    <a href="@Url.Action("ReportIssue")" class="btn btn-primary-custom">
+                        <i class="fas fa-plus-circle me-2"></i>Report Issue Now
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Local Events Card - DISABLED -->
+        <div class="col-md-4">
+            <div class="card card-custom h-100 opacity-75">
+                <div class="card-body text-center p-4 position-relative">
+                    <!-- Coming Soon Badge -->
+                    <div class="position-absolute top-0 start-50 translate-middle">
+                        <span class="badge bg-warning text-dark rounded-pill px-3 py-2">
+                            <i class="fas fa-clock me-1"></i>PART 2
+                        </span>
+                    </div>
+
+                    <div class="mb-3 mt-3">
+                        <i class="fas fa-calendar-alt card-icon text-muted"></i>
+                    </div>
+
+                    <h5 class="card-title text-muted">Local Events & Announcements</h5>
+                    <p class="card-text text-muted">
+                        Stay updated with local events and municipal announcements.
+                        Will implement advanced data structures in Part 2.
+                    </p>
+
+                    <!-- Future Implementation Details -->
+                    <div class="small text-muted mb-3">
+                        <div class="d-flex justify-content-between">
+                            <span><i class="fas fa-hashtable"></i> Hash Tables</span>
+                            <span><i class="fas fa-sort"></i> Sorted Dict</span>
+                            <span><i class="fas fa-list-ul"></i> Sets</span>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-disabled-custom" disabled>
+                        <i class="fas fa-lock me-2"></i>Available in Part 2
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Service Status Card - DISABLED -->
+        <div class="col-md-4">
+            <div class="card card-custom h-100 opacity-75">
+                <div class="card-body text-center p-4 position-relative">
+                    <!-- Coming Soon Badge -->
+                    <div class="position-absolute top-0 start-50 translate-middle">
+                        <span class="badge bg-secondary rounded-pill px-3 py-2">
+                            <i class="fas fa-clock me-1"></i>PART 3
+                        </span>
+                    </div>
+
+                    <div class="mb-3 mt-3">
+                        <i class="fas fa-chart-bar card-icon text-muted"></i>
+                    </div>
+
+                    <h5 class="card-title text-muted">Service Request Status</h5>
+                    <p class="card-text text-muted">
+                        Track the progress of your service requests and get real-time updates.
+                        Will implement tree structures and graph algorithms in Part 3.
+                    </p>
+
+                    <!-- Future Implementation Details -->
+                    <div class="small text-muted mb-3">
+                        <div class="d-flex justify-content-between">
+                            <span><i class="fas fa-sitemap"></i> BST</span>
+                            <span><i class="fas fa-project-diagram"></i> Graphs</span>
+                            <span><i class="fas fa-sort-amount-down"></i> Heaps</span>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-disabled-custom" disabled>
+                        <i class="fas fa-lock me-2"></i>Available in Part 3
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+
+   
+</div>

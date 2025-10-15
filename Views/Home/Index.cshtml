@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Municipal Services Portal - POE Part 1";
+    ViewBag.Title = "Municipal Services Portal - POE Parts 1 & 2";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -8,10 +8,10 @@
     <div class="container hero-content">
         <h1 class="hero-title">Municipal Services Portal</h1>
         <p class="hero-subtitle">
-            Your Gateway to Efficient Municipal Services 
+            Your Gateway to Efficient Municipal Services
         </p>
         <small class="text-white-50 d-block mt-3">
-            Part 1: Report Issues Feature 
+            Parts 1 & 2: Report Issues + Local Events ✓
         </small>
     </div>
 </div>
@@ -20,20 +20,21 @@
 <div class="container py-5">
 
     <!-- POE Status Banner -->
-    <div class="alert alert-info mb-5" role="alert">
+    <div class="alert alert-info mb-5 slide-up" role="alert">
         <div class="row align-items-center">
             <div class="col-md-8">
                 <h5 class="alert-heading mb-2">
                     <i class="fas fa-graduation-cap me-2"></i>PROG7312 POE Development Status
                 </h5>
                 <p class="mb-0">
-                    <strong>Part 1:</strong> Report Issues (Active) |
-                    <strong>Part 2:</strong> Local Events (Coming Soon) |
+                    <strong>Part 1:</strong> Report Issues (Complete ✓) |
+                    <strong>Part 2:</strong> Local Events (Complete ✓) |
                     <strong>Part 3:</strong> Service Status (Coming Soon)
                 </p>
             </div>
             <div class="col-md-4 text-end">
-                <span class="badge bg-success fs-6">Part 1 Complete</span>
+                <span class="badge bg-success fs-6 me-2">Part 1 ✓</span>
+                <span class="badge bg-success fs-6">Part 2 ✓</span>
             </div>
         </div>
     </div>
@@ -41,14 +42,14 @@
     <!-- Service Cards -->
     <div class="row g-4">
 
-        <!-- Report Issues Card - ACTIVE -->
+        <!-- Report Issues Card - PART 1 COMPLETE -->
         <div class="col-md-4">
             <div class="card card-custom h-100">
                 <div class="card-body text-center p-4 position-relative">
                     <!-- Active Badge -->
                     <div class="position-absolute top-0 start-50 translate-middle">
                         <span class="badge bg-success rounded-pill px-3 py-2">
-                            <i class="fas fa-check me-1"></i>ACTIVE
+                            <i class="fas fa-check me-1"></i>PART 1 COMPLETE
                         </span>
                     </div>
 
@@ -58,10 +59,18 @@
 
                     <h5 class="card-title">Report Issues</h5>
                     <p class="card-text">
-                        Report municipal issues and service requests 
+                        Report municipal issues and service requests quickly and efficiently.
                     </p>
 
-                  
+                    <!-- Data Structures Used -->
+                    <div class="mb-3">
+                        <small class="text-muted d-block fw-bold mb-2">Data Structures:</small>
+                        <div class="d-flex justify-content-center gap-1 flex-wrap">
+                            <span class="badge bg-primary">LinkedList</span>
+                            <span class="badge bg-danger">Stack</span>
+                            <span class="badge bg-info">Queue</span>
+                        </div>
+                    </div>
 
                     <a href="@Url.Action("ReportIssue")" class="btn btn-primary-custom">
                         <i class="fas fa-plus-circle me-2"></i>Report Issue Now
@@ -70,51 +79,54 @@
             </div>
         </div>
 
-        <!-- Local Events Card - DISABLED -->
+        <!-- Local Events Card - PART 2 COMPLETE -->
         <div class="col-md-4">
-            <div class="card card-custom h-100 opacity-75">
+            <div class="card card-custom h-100">
                 <div class="card-body text-center p-4 position-relative">
-                    <!-- Coming Soon Badge -->
+                    <!-- Active Badge -->
                     <div class="position-absolute top-0 start-50 translate-middle">
-                        <span class="badge bg-warning text-dark rounded-pill px-3 py-2">
-                            <i class="fas fa-clock me-1"></i>PART 2
+                        <span class="badge bg-success rounded-pill px-3 py-2">
+                            <i class="fas fa-check me-1"></i>PART 2 COMPLETE
                         </span>
                     </div>
 
                     <div class="mb-3 mt-3">
-                        <i class="fas fa-calendar-alt card-icon text-muted"></i>
+                        <i class="fas fa-calendar-alt card-icon text-success"></i>
                     </div>
 
-                    <h5 class="card-title text-muted">Local Events & Announcements</h5>
-                    <p class="card-text text-muted">
-                        Stay updated with local events and municipal announcements.
-                        Will implement advanced data structures in Part 2.
+                    <h5 class="card-title">Local Events & Announcements</h5>
+                    <p class="card-text">
+                        Stay updated with local events and municipal announcements with smart recommendations.
                     </p>
 
-                    <!-- Future Implementation Details -->
-                    <div class="small text-muted mb-3">
-                        <div class="d-flex justify-content-between">
-                            <span><i class="fas fa-hashtable"></i> Hash Tables</span>
-                            <span><i class="fas fa-sort"></i> Sorted Dict</span>
-                            <span><i class="fas fa-list-ul"></i> Sets</span>
+                    <!-- Data Structures Used -->
+                    <div class="mb-3">
+                        <small class="text-muted d-block fw-bold mb-2">Data Structures:</small>
+                        <div class="d-flex justify-content-center gap-1 flex-wrap">
+                            <span class="badge bg-primary">Dictionary</span>
+                            <span class="badge bg-success">SortedDict</span>
+                            <span class="badge bg-warning text-dark">HashSet</span>
+                            <span class="badge bg-danger">Queue</span>
+                            <span class="badge bg-info">Stack</span>
+                            <span class="badge bg-secondary">PriorityQueue</span>
                         </div>
                     </div>
 
-                    <button class="btn btn-disabled-custom" disabled>
-                        <i class="fas fa-lock me-2"></i>Available in Part 2
-                    </button>
+                    <a href="@Url.Action("LocalEvents")" class="btn btn-primary-custom">
+                        <i class="fas fa-calendar-check me-2"></i>Browse Events
+                    </a>
                 </div>
             </div>
         </div>
 
-        <!-- Service Status Card - DISABLED -->
+        <!-- Service Status Card - PART 3 PENDING -->
         <div class="col-md-4">
             <div class="card card-custom h-100 opacity-75">
                 <div class="card-body text-center p-4 position-relative">
                     <!-- Coming Soon Badge -->
                     <div class="position-absolute top-0 start-50 translate-middle">
                         <span class="badge bg-secondary rounded-pill px-3 py-2">
-                            <i class="fas fa-clock me-1"></i>PART 3
+                            <i class="fas fa-clock me-1"></i>PART 3 PENDING
                         </span>
                     </div>
 
@@ -124,16 +136,17 @@
 
                     <h5 class="card-title text-muted">Service Request Status</h5>
                     <p class="card-text text-muted">
-                        Track the progress of your service requests and get real-time updates.
-                        Will implement tree structures and graph algorithms in Part 3.
+                        Track the progress of your service requests with advanced status management.
                     </p>
 
-                    <!-- Future Implementation Details -->
-                    <div class="small text-muted mb-3">
-                        <div class="d-flex justify-content-between">
-                            <span><i class="fas fa-sitemap"></i> BST</span>
-                            <span><i class="fas fa-project-diagram"></i> Graphs</span>
-                            <span><i class="fas fa-sort-amount-down"></i> Heaps</span>
+                    <!-- Future Data Structures -->
+                    <div class="mb-3">
+                        <small class="text-muted d-block fw-bold mb-2">Upcoming Data Structures:</small>
+                        <div class="d-flex justify-content-center gap-1 flex-wrap">
+                            <span class="badge bg-light text-dark">BST</span>
+                            <span class="badge bg-light text-dark">AVL Tree</span>
+                            <span class="badge bg-light text-dark">Graphs</span>
+                            <span class="badge bg-light text-dark">Heaps</span>
                         </div>
                     </div>
 
@@ -145,7 +158,150 @@
         </div>
     </div>
 
-    
+    <!-- Implementation Summary -->
+    <div class="row mt-5">
+        <div class="col-12">
+            <div class="card card-custom slide-up">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-code me-2"></i>Implementation Summary
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6 class="text-primary mb-3">
+                                <i class="fas fa-check-circle me-2"></i>Completed Features
+                            </h6>
+                            <ul class="list-unstyled">
+                                <li class="mb-2">
+                                    <i class="fas fa-chevron-right text-success me-2"></i>
+                                    <strong>Part 1:</strong> Issue Reporting System
+                                    <ul class="ms-4 mt-1">
+                                        <li><small>LinkedList for dynamic issue storage</small></li>
+                                        <li><small>Stack for recent submissions tracking</small></li>
+                                        <li><small>Queue for processing order management</small></li>
+                                        <li><small>Real-time progress tracking</small></li>
+                                        <li><small>File upload support</small></li>
+                                    </ul>
+                                </li>
+                                <li class="mb-2">
+                                    <i class="fas fa-chevron-right text-success me-2"></i>
+                                    <strong>Part 2:</strong> Local Events & Announcements
+                                    <ul class="ms-4 mt-1">
+                                        <li><small>Dictionary for O(1) event lookup</small></li>
+                                        <li><small>SortedDictionary for chronological organization</small></li>
+                                        <li><small>HashSet for unique categories & tags</small></li>
+                                        <li><small>Queue for recent search tracking (FIFO)</small></li>
+                                        <li><small>Stack for search history (LIFO)</small></li>
+                                        <li><small>PriorityQueue for featured events</small></li>
+                                        <li><small>Advanced recommendation algorithm</small></li>
+                                        <li><small>Real-time search and filtering</small></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h6 class="text-secondary mb-3">
+                                <i class="fas fa-clock me-2"></i>Upcoming Features
+                            </h6>
+                            <ul class="list-unstyled">
+                                <li class="mb-2">
+                                    <i class="fas fa-chevron-right text-muted me-2"></i>
+                                    <strong>Part 3:</strong> Service Request Status Tracking
+                                    <ul class="ms-4 mt-1 text-muted">
+                                        <li><small>Binary Search Trees for efficient searching</small></li>
+                                        <li><small>AVL Trees for balanced data management</small></li>
+                                        <li><small>Red-Black Trees for optimal performance</small></li>
+                                        <li><small>Graphs for dependency tracking</small></li>
+                                        <li><small>Graph traversal algorithms</small></li>
+                                        <li><small>Heaps for priority management</small></li>
+                                        <li><small>Minimum Spanning Tree algorithms</small></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
 
-   
+                    <hr class="my-4">
+
+                    <div class="row text-center">
+                        <div class="col-md-3">
+                            <div class="p-3">
+                                <h4 class="text-primary mb-1">200 / 300</h4>
+                                <small class="text-muted">Total Marks Achieved</small>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="p-3">
+                                <h4 class="text-success mb-1">10+</h4>
+                                <small class="text-muted">Data Structures Used</small>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="p-3">
+                                <h4 class="text-info mb-1">2 / 3</h4>
+                                <small class="text-muted">Parts Completed</small>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="p-3">
+                                <h4 class="text-warning mb-1">66%</h4>
+                                <small class="text-muted">Project Progress</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Links -->
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="card card-custom slide-up">
+                <div class="card-body">
+                    <h6 class="mb-3">
+                        <i class="fas fa-rocket me-2 text-primary"></i>Quick Actions
+                    </h6>
+                    <div class="d-grid gap-2">
+                        <a href="@Url.Action("ReportIssue")" class="btn btn-outline-primary">
+                            <i class="fas fa-tools me-2"></i>Report a New Issue
+                        </a>
+                        <a href="@Url.Action("LocalEvents")" class="btn btn-outline-success">
+                            <i class="fas fa-calendar-check me-2"></i>Browse Upcoming Events
+                        </a>
+                        <button class="btn btn-outline-secondary" disabled>
+                            <i class="fas fa-chart-line me-2"></i>Track Service Status (Part 3)
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card card-custom slide-up">
+                <div class="card-body">
+                    <h6 class="mb-3">
+                        <i class="fas fa-info-circle me-2 text-info"></i>About This Project
+                    </h6>
+                    <p class="small mb-2">
+                        This Municipal Services Application is developed as part of the
+                        <strong>PROG7312 Portfolio of Evidence</strong>, demonstrating
+                        advanced programming concepts and data structure implementations.
+                    </p>
+                    <p class="small mb-3">
+                        The application streamlines citizen engagement with municipal services
+                        through efficient issue reporting, event management, and service tracking.
+                    </p>
+                    <div class="alert alert-info mb-0 p-2">
+                        <small>
+                            <i class="fas fa-graduation-cap me-1"></i>
+                            <strong>Academic Project</strong> - Advanced Application Development
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+

@@ -582,15 +582,7 @@ function showStatusUpdate(newStatus, progress, message) {
 }
 
 // Utility Functions
-function disableUnimplementedFeatures() {
-    const disabledLinks = document.querySelectorAll('a[href*="LocalEvents"], a[href*="ServiceStatus"]');
-    disabledLinks.forEach(link => {
-        link.addEventListener('click', function (e) {
-            e.preventDefault();
-            alert('This feature will be implemented in future parts of the POE project.');
-        });
-    });
-}
+
 
 function initializeHelpSystem() {
     // Initialize tooltips for form fields

@@ -1,7 +1,8 @@
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using MunicipalServiceApp_PROG7312.Models;
+using MunicipalServiceApp_PROG7312.Services;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -144,12 +145,7 @@ namespace MunicipalServiceApp_PROG7312.Controllers
         }
 
         // Disabled features as per POE Part 1 requirements
-        public IActionResult LocalEvents()
-        {
-            ViewBag.Message = "This feature will be implemented in Part 2 of the POE.";
-            ViewBag.IsDisabled = true;
-            return View();
-        }
+       
 
         public IActionResult ServiceStatus()
         {
@@ -217,6 +213,139 @@ namespace MunicipalServiceApp_PROG7312.Controllers
                 return "Excellent progress! Your detailed reports help us serve you better.";
             else
                 return "Perfect! Your complete report will receive prompt attention from our team.";
+        }
+
+
+
+
+
+
+        /// <summary>
+        /// Local Events and Announcements - POE Part 2
+        /// Demonstrates advanced data structures and recommendation engine
+        /// </summary>
+        [HttpGet]
+        public IActionResult LocalEvents(string searchQuery, string category, DateTime? startDate, DateTime? endDate)
+        {
+            var model = new EventSearchViewModel
+            {
+                SearchQuery = searchQuery,
+                SelectedCategory = category,
+                StartDate = startDate,
+                EndDate = endDate,
+                Categories = EventService.GetAllCategories()
+            };
+
+            // Get filtered events using data structures
+            var events = EventService.SearchEvents(searchQuery, category, startDate);
+
+            // Organize by date using SortedDictionary
+            model.EventsByDate = EventService.OrganizeEventsByDate(events);
+            model.AllEvents = events;
+
+            // Get recommendations using advanced algorithm
+            model.RecommendedEvents = EventService.GetRecommendations(searchQuery, category);
+
+            // Get recent searches using Queue
+            model.RecentSearches = EventService.GetRecentSearches();
+
+            // Statistics
+            model.Statistics = EventService.GetSearchStatistics();
+            model.TotalEvents = EventService.GetTotalEvents();
+            model.FilteredEvents = events.Count;
+
+            return View(model);
+        }
+
+        /// <summary>
+        /// AJAX endpoint for real-time recommendations
+        /// </summary>
+        [HttpGet]
+        public IActionResult GetEventRecommendations(string searchQuery, string category)
+        {
+            var recommendations = EventService.GetRecommendations(searchQuery, category, 6);
+
+            return Json(new
+            {
+                success = true,
+                recommendations = recommendations.Select(e => new
+                {
+                    eventId = e.EventId,
+                    title = e.Title,
+                    category = e.Category,
+                    eventDate = e.EventDate.ToString("yyyy-MM-dd HH:mm"),
+                    location = e.Location,
+                    isFeatured = e.IsFeatured,
+                    priority = e.Priority
+                })
+            });
+        }
+
+        /// <summary>
+        /// Get featured events using Priority Queue
+        /// </summary>
+        [HttpGet]
+        public IActionResult GetFeaturedEvents()
+        {
+            var featured = EventService.GetFeaturedEvents(5);
+
+            return Json(new
+            {
+                success = true,
+                events = featured.Select(e => new
+                {
+                    eventId = e.EventId,
+                    title = e.Title,
+                    category = e.Category,
+                    eventDate = e.EventDate.ToString("yyyy-MM-dd HH:mm"),
+                    location = e.Location
+                })
+            });
+        }
+
+        /// <summary>
+        /// Get search statistics
+        /// </summary>
+        [HttpGet]
+        public IActionResult GetEventStatistics()
+        {
+            var stats = EventService.GetSearchStatistics();
+
+            return Json(new
+            {
+                success = true,
+                totalSearches = stats.TotalSearches,
+                uniqueCategories = stats.UniqueCategories,
+                mostSearchedCategory = stats.MostSearchedCategory,
+                totalEvents = EventService.GetTotalEvents(),
+                upcomingEvents = EventService.GetUpcomingEventsCount()
+            });
+        }
+
+        /// <summary>
+        /// Track search patterns
+        /// </summary>
+        [HttpPost]
+        public IActionResult TrackSearch([FromBody] SearchTrackingRequest request)
+        {
+            if (!string.IsNullOrWhiteSpace(request.SearchTerm))
+            {
+                EventService.TrackSearch(request.SearchTerm);
+            }
+
+            if (!string.IsNullOrWhiteSpace(request.Category))
+            {
+                EventService.TrackCategorySearch(request.Category);
+            }
+
+            return Json(new { success = true });
+        }
+
+        // Helper class for search tracking
+        public class SearchTrackingRequest
+        {
+            public string? SearchTerm { get; set; }
+            public string? Category { get; set; }
         }
     }
 }

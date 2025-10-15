@@ -55,30 +55,35 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link @(ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")"
+                        <a class="nav-link @(ViewContext.RouteData.Values["Action"]?.ToString() == "Index" ? "active" : "")"
                            href="@Url.Action("Index", "Home")">
                             <i class="fas fa-home me-1"></i>Home
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link @(ViewContext.RouteData.Values["Action"].ToString() == "ReportIssue" ? "active" : "")"
+                        <a class="nav-link @(ViewContext.RouteData.Values["Action"]?.ToString() == "ReportIssue" ? "active" : "")"
                            href="@Url.Action("ReportIssue", "Home")">
                             <i class="fas fa-tools me-1"></i>Report Issues
                         </a>
                     </li>
+
                     <li class="nav-item">
-                        <a class="nav-link disabled"
-                           href="#"
-                           tabindex="-1"
-                           aria-disabled="true"
-                           title="Available in POE Part 2">
+                        <a class="nav-link @(ViewContext.RouteData.Values["Action"]?.ToString() == "LocalEvents" ? "active" : "")"
+                           href="@Url.Action("LocalEvents", "Home")">
                             <i class="fas fa-calendar-alt me-1"></i>Local Events
-                            <small class="badge bg-warning text-dark ms-1">Part 2</small>
+                            <small class="badge bg-success ms-1">Part 2</small>
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Admin" ? "active" : "")"
+                           href="@Url.Action("Login", "Admin")">
+                            <i class="fas fa-user-shield me-1"></i> Admin
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
                         <a class="nav-link disabled"
-                           href="#"
+                           href="javascript:void(0);"
                            tabindex="-1"
                            aria-disabled="true"
                            title="Available in POE Part 3">
@@ -89,6 +94,10 @@
                 </ul>
             </div>
         </div>
+    </nav>
+               
+            
+        
     </nav>
 
     <!-- Main Content Area -->
@@ -244,14 +253,16 @@
             });
         }
 
-        function initializeDisabledFeatures() {
-            // Handle clicks on disabled navigation items
+                function initializeDisabledFeatures() {
+            // Handle clicks on disabled navigation items - ONLY Service Status
             $('.nav-link.disabled').on('click', function(e) {
-                e.preventDefault();
-                const featureName = $(this).find('i').next().text().trim();
-                const partNumber = $(this).find('.badge').text();
-
-                showFeatureNotAvailableModal(featureName, partNumber);
+                // Only prevent default if it's actually disabled
+                if ($(this).hasClass('disabled')) {
+                    e.preventDefault();
+                    const featureName = $(this).find('i').next().text().trim();
+                    const partNumber = $(this).find('.badge').text();
+                    showFeatureNotAvailableModal(featureName, partNumber);
+                }
             });
         }
 

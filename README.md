@@ -1,175 +1,328 @@
-**Municipal Services Application - PROG7312 POE Part 1
-📌 Project Overview**
+# Municipal Services Application - PROG7312 POE Parts 1 & 2
 
-This is a C# ASP.NET Core web application developed for PROG7312 POE Part 1, implementing a Municipal Services Portal for South African municipalities.
-The application focuses on the "Report Issues" functionality using advanced data structures as specified in the POE requirements.
+## 📌 Project Overview
+This is a C# ASP.NET Core web application developed for PROG7312 POE Parts 1 & 2, implementing a Municipal Services Portal for Cape Town, South Africa. The application now includes both "Report Issues" (Part 1) and "Local Events & Announcements" (Part 2) functionality using advanced data structures as specified in the POE requirements.
 
-👨‍🎓 **Student Information**
+## 👨‍🎓 Student Information
+- **Module:** PROG7312 - Programming 3B / AAPD7112 - Advanced Application Development
+- **Project Name:** MunicipalServiceApp-PROG7312
+- **POE Part:** Parts 1 & 2 of 3
+- **Implementation Status:** 
+  - ✅ Part 1 Complete - Report Issues Feature
+  - ✅ Part 2 Complete - Local Events & Announcements Feature
+  - ⏳ Part 3 Pending - Service Request Status
 
-Module: PROG7312 - Programming 3B / AAPD7112 - Advanced Application Development
+---
 
-Project Name: MunicipalServiceApp-PROG7312
+## 🚀 Features Implemented
 
-POE Part: 1 of 3
+### Part 1: Report Issues
 
-Implementation Status: ✅ Part 1 Complete - Report Issues Feature
+#### Core Functionality
+- **Report Issues Module:** Fully functional issue reporting system
+- **Data Structure Implementation:** LinkedList, Stack, and Queue for efficient data management
+- **File Upload System:** Support for images and documents with validation (5MB limit)
+- **User Engagement Strategy:** Real-time progress tracking and encouraging feedback
+- **Form Validation:** Comprehensive client-side and server-side validation
+- **Smart Category Suggestions:** Auto-suggests categories based on location keywords
 
-🚀** Features Implemented (Part 1)
-Core Functionality**
+### Part 2: Local Events & Announcements 
 
-Report Issues Module: Fully functional issue reporting system
+#### Core Functionality
+- **Cape Town Events Hub:** 10+ authentic Cape Town events with real locations
+- **Advanced Search System:** Tabbed interface with quick search and advanced filters
+- **Smart Recommendation Engine:** Algorithm-based event suggestions (30 marks)
+- **Timeline View:** Unique chronological event display with circular date markers
+- **Real-time Filtering:** Search by keywords, category, and date
+- **Recent Search Tracking:** Queue-based search history (FIFO)
 
-Data Structure Implementation: LinkedList, Stack, and Queue for efficient data management
+#### Cape Town Specific Features
+- **Authentic Locations:** Table Mountain, V&A Waterfront, Khayelitsha, Sea Point, etc.
+- **Local Issues:** Load shedding awareness, water restrictions, MyCiTi transport
+- **Community Events:** Beach cleanups, skills development, heritage tours
+- **Municipal Services:** Road upgrades, infrastructure consultations, public safety
 
-File Upload System: Support for images and documents with validation (5MB limit)
+---
 
-User Engagement Strategy: Real-time progress tracking and encouraging feedback
+## 📚 Data Structures Utilized
 
-Form Validation: Comprehensive client-side and server-side validation
+### Part 1 Data Structures
 
-Smart Category Suggestions: Auto-suggests categories based on location keywords
+#### 1. LinkedList
+- **Purpose:** Primary storage for all submitted issues
+- **Implementation:** `LinkedList<Issue>` for dynamic storage
+- **Operations:** Add, traverse, search by ID, category filtering
+- **Benefits:** Efficient insertion/deletion, dynamic memory allocation
 
-**📚 Data Structures Utilized
-1. LinkedList**
+#### 2. Stack (LIFO)
+- **Purpose:** Track recently submitted issues
+- **Implementation:** `Stack<Issue>` for recent history
+- **Operations:** Push new issues, peek for most recent
+- **Benefits:** Quick access to latest submissions
 
-Purpose: Primary storage for all submitted issues
+#### 3. Queue (FIFO)
+- **Purpose:** Manage processing order for municipal departments
+- **Implementation:** `Queue<Issue>` for fair processing
+- **Operations:** Enqueue new issues, peek next for processing
+- **Benefits:** Ensures first-come-first-served processing
 
-Implementation: LinkedList<Issue> for dynamic storage
+### Part 2 Data Structures
 
-Operations: Add, traverse, search by ID, category filtering
+#### 1. Dictionary (Hash Table) 
+- **Purpose:** O(1) event lookup by unique EventId
+- **Implementation:** `Dictionary<string, Event>` for fast retrieval
+- **Operations:** Add, retrieve, update, delete events
+- **Benefits:** Constant time complexity for searches
 
-Benefits: Efficient insertion/deletion, dynamic memory allocation
+#### 2. SortedDictionary 
+- **Purpose:** Organize events chronologically by date
+- **Implementation:** `SortedDictionary<DateTime, List<Event>>`
+- **Operations:** Automatic sorting, range queries, date-based grouping
+- **Benefits:** Always maintains sorted order, efficient date navigation
 
-**2. Stack (LIFO)**
+#### 3. HashSet (Set) 
+- **Purpose:** Store unique categories and event tags
+- **Implementation:** `HashSet<string>` for categories and tags
+- **Operations:** Add unique items, intersection, union operations
+- **Benefits:** Prevents duplicates, fast membership testing
 
-Purpose: Track recently submitted issues
+#### 4. Queue (FIFO) 
+- **Purpose:** Track recent searches (First-In-First-Out)
+- **Implementation:** `Queue<string>` with max 10 searches
+- **Operations:** Enqueue new searches, dequeue oldest when full
+- **Benefits:** Maintains search history in chronological order
 
-Implementation: Stack<Issue> for recent history
+#### 5. Stack (LIFO) 
+- **Purpose:** Complete search history (Last-In-First-Out)
+- **Implementation:** `Stack<string>` for full history
+- **Operations:** Push searches, pop for undo functionality
+- **Benefits:** Access most recent searches first
 
-Operations: Push new issues, peek for most recent
+#### 6. PriorityQueue 
+- **Purpose:** Manage featured and high-priority events
+- **Implementation:** `PriorityQueue<Event, int>` with priority levels 1-5
+- **Operations:** Enqueue with priority, dequeue highest priority
+- **Benefits:** Automatic priority-based ordering
 
-Benefits: Quick access to latest submissions
+### Part 2 Advanced Algorithm
 
-**3. Queue (FIFO)**
+#### Recommendation Engine 
+- **Algorithm Type:** Weighted scoring with multiple factors
+- **Scoring Factors:**
+  - Search pattern frequency (user behavior analysis)
+  - Category search history (preference tracking)
+  - Current search context (relevance boosting)
+  - Event features (featured status, priority level)
+  - Event popularity (attendee count)
+  - Time relevance (upcoming events weighted higher)
+- **Data Structures Used:**
+  - `Dictionary<string, int>` for search pattern tracking
+  - `Dictionary<string, int>` for category frequency
+  - Scoring algorithm with 6 weighted factors
+- **Output:** Top 6 recommended events based on combined score
 
-Purpose: Manage processing order for municipal departments
+---
 
-Implementation: Queue<Issue> for fair processing
+## 🛠️ Technical Specifications
 
-Operations: Enqueue new issues, peek next for processing
-
-Benefits: Ensures first-come-first-served processing
-
-**🛠️ Technical Specifications**
-
-Technology Stack
-
-Framework: ASP.NET Core (.NET 6/7/8)
-
-Language: C#
-
-Frontend: HTML5, CSS3, Bootstrap 5, Vanilla JavaScript
-
-Authentication: ASP.NET Core Identity (optional, not required for POE)
-
-File Structure: Standard MVC pattern (Models, Views, Controllers)
+### Technology Stack
+- **Framework:** ASP.NET Core (.NET 6/7/8)
+- **Language:** C#
+- **Frontend:** HTML5, CSS3, Bootstrap 5, Custom CSS
+- **JavaScript:** Vanilla JavaScript (no frameworks)
+- **Authentication:** Session-based admin system
+- **File Structure:** Standard MVC pattern (Models, Views, Controllers, Services)
 
 
+---
 
-**⚙️ Installation and Setup
-Prerequisites**
+## ⚙️ Installation and Setup
 
-Visual Studio 2022 or later
+### Prerequisites
+- Visual Studio 2022 or later
+- .NET 6/7/8 SDK
+- SQL Server (for Identity, optional)
+- IIS Express (included with Visual Studio)
 
-.NET 6/7/8 SDK
+### Installation Steps
 
-SQL Server (for Identity, optional)
+#### 1. Clone or Extract the Project
+```bash
+# Extract files to your desired directory
+```
 
-IIS Express (included with Visual Studio)
-
-Steps
-
-Clone or Extract the Project
-
-Extract files to your desired directory
-
-Open in Visual Studio
-
+#### 2. Open in Visual Studio
+```
 File → Open → Project/Solution → Select MunicipalServiceApp-PROG7312.sln
+```
 
-Restore NuGet Packages
-
+#### 3. Restore NuGet Packages
+```
 Right-click solution → Restore NuGet Packages
+```
 
-Configure Database (Optional - Identity Only)
-
+#### 4. Configure Database (Optional - Identity Only)
+```bash
 Update-Database
+# Only for Identity system, not required for POE functionality
+```
 
-
-(Only for Identity system, not required for POE functionality)
-
-Build the Project
-
+#### 5. Build the Project
+```
 Build → Build Solution (Ctrl+Shift+B)
+```
 
-Run the Application
-
+#### 6. Run the Application
+```
 Press F5 or click Start
-
 App runs at: https://localhost:[port]/
+```
 
-**🖥️ Usage Instructions
-Main Menu Navigation**
+---
 
-Report Issues (Active - Part 1)
+## 🖥️ Usage Instructions
 
-Local Events & Announcements (Disabled - Part 2)
+### Main Menu Navigation
+1. **Report Issues** ✅ (Active - Part 1)
+2. **Local Events & Announcements** ✅ (Active - Part 2)
+3. **Service Request Status** ⏳ (Disabled - Part 3)
+4. **Admin Portal** 🔐 (Admin login for event management)
 
-Service Request Status (Disabled - Part 3)
+### Part 1: Reporting an Issue
 
-Reporting an Issue
+1. **Access Report Form**
+   - Click "Report Issue Now" from main menu
 
-Access Report Form → "Report Issue Now"
+2. **Fill Required Fields**
+   - **Location** (3–100 chars)
+   - **Category** (dropdown, 9 predefined)
+   - **Description** (10–500 chars)
 
-Fill Required Fields
+3. **Optional Features**
+   - File Attachment (max 5MB)
+   - Smart Suggestions (auto-category detection)
+   - Progress Tracking (real-time feedback)
 
-Location (3–100 chars)
+4. **Submit Form**
+   - Validation ensures all required data
+   - Success page displays issue details + data structure analytics
 
-Category (dropdown, 9 predefined)
+### Part 2: Browsing Local Events
 
-Description (10–500 chars)
+#### Quick Search
+1. **Access Events Hub**
+   - Click "Local Events" from main menu
 
-Optional Features
+2. **Quick Search Tab**
+   - Enter keywords in search bar
+   - Click "Find" to search
 
-File Attachment (max 5MB)
+3. **View Results**
+   - Timeline view with chronological organization
+   - Events grouped by date with circular markers
 
-Smart Suggestions (auto-category detection)
+#### Advanced Filters
+1. **Switch to Advanced Tab**
+   - Click "Advanced Filters" tab
 
-Progress Tracking
+2. **Apply Filters**
+   - **Keywords:** Enter search terms
+   - **Category:** Select from dropdown (Environment, Utilities, etc.)
+   - **Date:** Choose starting date
 
-Submit Form
+3. **View Filtered Results**
+   - Events automatically filtered and sorted
+   - Smart recommendations update based on search
 
-Validation ensures all required data
 
-Success page displays issue details + data structure analytics
 
-**🔮 Future Development (Parts 2 & 3)
-Part 2 - Local Events & Announcements**
+#### Smart Recommendations
+- Located in right sidebar
+- Updates based on your search behavior
+- Shows 4-6 personalized event suggestions
+- Powered by multi-factor algorithm
 
-Hash Tables for categorization
+#### Recent Searches
+- Displays last 5 searches
+- Click to quickly re-apply search
+- Demonstrates Queue (FIFO) functionality
 
-Sorted Dictionaries for date-based organization
+### Admin Features (Bonus)
 
-Sets for unique events
+#### Admin Login
+- **URL:** `/Admin/Login`
+- **Username:** `admin`
+- **Password:** `Admin@123`
 
-Advanced search + filtering
+#### Admin Dashboard
+- View all events in table format
+- Statistics: Total events, upcoming, featured, categories
+- Create, edit, and delete events
+- Manage event priorities and featured status
 
-Part 3 - Service Request Status
+#### Creating Events
+1. Navigate to Admin Dashboard
+2. Click "Create Event" button
+3. Fill event details (title, category, description, etc.)
+4. Set priority (1-5) and featured status
+5. Add tags (comma-separated)
+6. Submit to add to system
 
-Binary Search Trees for status lookup
+---
 
-Graph algorithms for dependency tracking
+## 📂 Project Structure
+```
+MunicipalServiceApp-PROG7312/
+├── Controllers/
+│   ├── HomeController.cs          # Main controller (Report Issues + Events)
+│   └── AdminController.cs         # Admin event management
+├── Models/
+│   ├── Issue.cs                   # Issue data model
+│   ├── Event.cs                   # Event data model + ViewModels
+│   ├── ReportIssueViewModel.cs    # Report form ViewModel
+│   └── AdminModels.cs             # Admin login + management models
+├── Services/
+│   └── EventService.cs            # Event data structures + algorithms
+├── Views/
+│   ├── Home/
+│   │   ├── Index.cshtml           # Main menu
+│   │   ├── ReportIssue.cshtml     # Issue reporting form
+│   │   ├── IssueSubmitted.cshtml  # Success confirmation
+│   │   └── LocalEvents.cshtml     # Events timeline (Part 2)
+│   ├── Admin/
+│   │   ├── Login.cshtml           # Admin login
+│   │   ├── Dashboard.cshtml       # Admin dashboard
+│   │   ├── CreateEvent.cshtml     # Create event form
+│   │   ├── EditEvent.cshtml       # Edit event form
+│   │   └── DeleteEvent.cshtml     # Delete confirmation
+│   └── Shared/
+│       └── _Layout.cshtml         # Main layout with navigation
+├── wwwroot/
+│   ├── css/
+│   │   └── site.css               # Custom styles
+│   ├── js/
+│   │   ├── site.js                # Global JavaScript
+│   │   └── events.js              # Events page specific JS
+│   └── uploads/                   # User uploaded files
+└── Program.cs                     # App configuration + session setup
+```
 
-Heap structures for priority
+---
 
-Advanced tree traversal
+
+
+## 🔮 Future Development (Part 3)
+
+### Part 3 - Service Request Status (Pending)
+- **Binary Search Trees:** Status lookup and searching
+- **AVL Trees:** Balanced tree for optimal performance
+- **Red-Black Trees:** Self-balancing tree implementation
+- **Graphs:** Dependency tracking between services
+- **Graph Traversal:** BFS/DFS for status tracking
+- **Heaps:** Priority queue for urgent requests
+- **Minimum Spanning Tree:** Service optimization
+
+
+**End of README - PROG7312 POE Parts 1 & 2**
+
+*Developed as part of the Advanced Application Development curriculum at The Independent Institute of Education*

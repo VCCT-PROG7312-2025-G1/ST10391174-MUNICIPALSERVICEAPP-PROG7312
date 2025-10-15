@@ -78,149 +78,149 @@ namespace MunicipalServiceApp_PROG7312.Services
             {
                 new Event
                 {
-                    Title = "Community Clean-Up Day",
-                    Category = "Community Service",
-                    Description = "Join us for a city-wide clean-up initiative. Help keep our community beautiful!",
-                    EventDate = DateTime.Now.AddDays(5),
-                    Location = "Central Park, Cape Town",
+                    Title = "Table Mountain Trail Maintenance Volunteer Day",
+                    Category = "Environment",
+                    Description = "Join us for trail maintenance on Table Mountain. Help preserve our natural heritage while enjoying stunning views of the city and coastline.",
+                    EventDate = DateTime.Now.AddDays(4),
+                    Location = "Table Mountain National Park, Tafelberg Road",
                     Priority = 2,
                     IsFeatured = true,
-                    AttendeeCount = 150,
-                    Tags = new HashSet<string> { "community", "environment", "volunteer" }
+                    AttendeeCount = 85,
+                    Tags = new HashSet<string> { "hiking", "conservation", "volunteer", "table-mountain" }
                 },
                 new Event
                 {
-                    Title = "Water Conservation Workshop",
-                    Category = "Education",
-                    Description = "Learn practical tips for saving water in your home and garden.",
-                    EventDate = DateTime.Now.AddDays(7),
-                    Location = "Municipal Hall",
-                    Priority = 2,
-                    IsFeatured = true,
-                    AttendeeCount = 75,
-                    Tags = new HashSet<string> { "water", "conservation", "education" }
-                },
-                new Event
-                {
-                    Title = "Road Maintenance Schedule - Main Street",
-                    Category = "Infrastructure",
-                    Description = "Scheduled maintenance on Main Street. Expect delays between 9 AM - 5 PM.",
+                    Title = "V&A Waterfront Load Shedding Information Session",
+                    Category = "Utilities",
+                    Description = "City Power briefing on load shedding schedules affecting the V&A Waterfront and surrounding areas. Backup power solutions discussion.",
                     EventDate = DateTime.Now.AddDays(2),
-                    Location = "Main Street",
+                    Location = "V&A Waterfront Amphitheatre, Dock Road",
                     Priority = 1,
-                    IsFeatured = true,
-                    AttendeeCount = 0,
-                    Tags = new HashSet<string> { "roads", "maintenance", "traffic" }
-                },
-                new Event
-                {
-                    Title = "Municipal Budget Public Meeting",
-                    Category = "Government",
-                    Description = "Public consultation on the upcoming municipal budget. Your input matters!",
-                    EventDate = DateTime.Now.AddDays(10),
-                    Location = "City Hall Auditorium",
-                    Priority = 2,
                     IsFeatured = true,
                     AttendeeCount = 200,
-                    Tags = new HashSet<string> { "budget", "government", "consultation" }
+                    Tags = new HashSet<string> { "electricity", "loadshedding", "infrastructure", "vna-waterfront" }
                 },
                 new Event
                 {
-                    Title = "Local Farmers Market",
-                    Category = "Community",
-                    Description = "Fresh produce and local crafts every Saturday morning.",
-                    EventDate = DateTime.Now.AddDays(3),
-                    Location = "Town Square",
-                    Priority = 3,
-                    IsFeatured = false,
-                    AttendeeCount = 500,
-                    Tags = new HashSet<string> { "market", "local", "food" }
-                },
-                new Event
-                {
-                    Title = "Electricity Load Shedding Schedule Update",
-                    Category = "Utilities",
-                    Description = "Updated load shedding schedule for the month. Check your area.",
-                    EventDate = DateTime.Now.AddDays(1),
-                    Location = "City-wide",
-                    Priority = 1,
-                    IsFeatured = true,
-                    AttendeeCount = 0,
-                    Tags = new HashSet<string> { "electricity", "loadshedding", "schedule" }
-                },
-                new Event
-                {
-                    Title = "Youth Sports Program Registration",
-                    Category = "Recreation",
-                    Description = "Register your children for summer sports programs. Limited spaces available.",
-                    EventDate = DateTime.Now.AddDays(14),
-                    Location = "Community Sports Center",
-                    Priority = 3,
-                    IsFeatured = false,
-                    AttendeeCount = 120,
-                    Tags = new HashSet<string> { "sports", "youth", "recreation" }
-                },
-                new Event
-                {
-                    Title = "Waste Collection Holiday Schedule",
-                    Category = "Sanitation",
-                    Description = "Changes to waste collection schedule during public holidays.",
+                    Title = "Khayelitsha Community Centre Opening",
+                    Category = "Community Development",
+                    Description = "Grand opening of the new Khayelitsha Multi-Purpose Community Centre with sports facilities, library, and skills training center.",
                     EventDate = DateTime.Now.AddDays(8),
-                    Location = "All Residential Areas",
-                    Priority = 2,
-                    IsFeatured = false,
-                    AttendeeCount = 0,
-                    Tags = new HashSet<string> { "waste", "collection", "schedule" }
-                },
-                new Event
-                {
-                    Title = "Fire Safety Awareness Campaign",
-                    Category = "Safety",
-                    Description = "Learn about fire prevention and safety measures for your home.",
-                    EventDate = DateTime.Now.AddDays(12),
-                    Location = "Fire Station",
+                    Location = "Khayelitsha Town Centre, Mew Way",
                     Priority = 2,
                     IsFeatured = true,
-                    AttendeeCount = 60,
-                    Tags = new HashSet<string> { "fire", "safety", "education" }
+                    AttendeeCount = 450,
+                    Tags = new HashSet<string> { "khayelitsha", "community", "development", "opening" }
                 },
                 new Event
                 {
-                    Title = "Small Business Development Workshop",
-                    Category = "Economic Development",
-                    Description = "Resources and support for local entrepreneurs and small businesses.",
-                    EventDate = DateTime.Now.AddDays(15),
-                    Location = "Business Hub",
-                    Priority = 3,
-                    IsFeatured = false,
-                    AttendeeCount = 85,
-                    Tags = new HashSet<string> { "business", "development", "workshop" }
-                },
-                new Event
-                {
-                    Title = "Public Transport Route Changes",
-                    Category = "Transportation",
-                    Description = "New bus routes and schedule changes effective next month.",
+                    Title = "Sea Point Promenade Coastal Cleanup",
+                    Category = "Environment",
+                    Description = "Beach and promenade cleanup initiative. Protect marine life and keep our coastline beautiful. Gloves and bags provided.",
                     EventDate = DateTime.Now.AddDays(6),
-                    Location = "City-wide",
-                    Priority = 2,
+                    Location = "Sea Point Promenade, Beach Road",
+                    Priority = 3,
                     IsFeatured = true,
-                    AttendeeCount = 0,
-                    Tags = new HashSet<string> { "transport", "bus", "schedule" }
+                    AttendeeCount = 120,
+                    Tags = new HashSet<string> { "beach", "cleanup", "environment", "sea-point" }
                 },
                 new Event
                 {
-                    Title = "Community Garden Opening",
-                    Category = "Community",
-                    Description = "Grand opening of our new community garden. Free seeds and tools!",
-                    EventDate = DateTime.Now.AddDays(9),
-                    Location = "Green Valley Park",
-                    Priority = 3,
+                    Title = "Century City Water Restrictions Workshop",
+                    Category = "Water Management",
+                    Description = "Learn about water-saving techniques and current restrictions. Free water-wise garden kits for attendees.",
+                    EventDate = DateTime.Now.AddDays(5),
+                    Location = "Century City Conference Centre, Ratanga Road",
+                    Priority = 2,
                     IsFeatured = false,
                     AttendeeCount = 95,
-                    Tags = new HashSet<string> { "garden", "community", "green" }
+                    Tags = new HashSet<string> { "water", "conservation", "workshop", "century-city" }
+                },
+                new Event
+                {
+                    Title = "Cape Town Stadium Community Sports Day",
+                    Category = "Recreation",
+                    Description = "Free sports activities for families at Cape Town Stadium. Soccer, rugby, athletics, and more. Register your kids online.",
+                    EventDate = DateTime.Now.AddDays(12),
+                    Location = "Cape Town Stadium, Green Point",
+                    Priority = 3,
+                    IsFeatured = false,
+                    AttendeeCount = 350,
+                    Tags = new HashSet<string> { "sports", "family", "recreation", "green-point" }
+                },
+                new Event
+                {
+                    Title = "Bellville Road Upgrade Information Meeting",
+                    Category = "Infrastructure",
+                    Description = "Public consultation on the R300 Bellville interchange upgrade. Traffic management plans and timelines will be discussed.",
+                    EventDate = DateTime.Now.AddDays(7),
+                    Location = "Bellville Civic Centre, Voortrekker Road",
+                    Priority = 1,
+                    IsFeatured = true,
+                    AttendeeCount = 175,
+                    Tags = new HashSet<string> { "roads", "traffic", "infrastructure", "bellville" }
+                },
+                new Event
+                {
+                    Title = "Camps Bay Beach Safety Awareness",
+                    Category = "Public Safety",
+                    Description = "NSRI beach safety demonstration. Learn about rip currents, safe swimming zones, and emergency procedures.",
+                    EventDate = DateTime.Now.AddDays(9),
+                    Location = "Camps Bay Beach, Victoria Road",
+                    Priority = 2,
+                    IsFeatured = true,
+                    AttendeeCount = 65,
+                    Tags = new HashSet<string> { "safety", "beach", "education", "camps-bay" }
+                },
+                new Event
+                {
+                    Title = "Mitchells Plain Skills Development Fair",
+                    Category = "Economic Development",
+                    Description = "Job opportunities, skills training programs, and small business support. Connect with local employers and training providers.",
+                    EventDate = DateTime.Now.AddDays(14),
+                    Location = "Mitchells Plain Town Centre, AZ Berman Drive",
+                    Priority = 2,
+                    IsFeatured = false,
+                    AttendeeCount = 280,
+                    Tags = new HashSet<string> { "jobs", "skills", "business", "mitchells-plain" }
+                },
+                new Event
+                {
+                    Title = "Hout Bay Harbour Recycling Drive",
+                    Category = "Waste Management",
+                    Description = "Drop off recyclables, e-waste, and hazardous materials. Proper disposal ensures environmental protection.",
+                    EventDate = DateTime.Now.AddDays(3),
+                    Location = "Hout Bay Harbour, Harbour Road",
+                    Priority = 3,
+                    IsFeatured = false,
+                    AttendeeCount = 140,
+                    Tags = new HashSet<string> { "recycling", "waste", "environment", "hout-bay" }
+                },
+                new Event
+                {
+                    Title = "MyCiTi Bus Route Expansion Consultation",
+                    Category = "Transportation",
+                    Description = "Have your say on proposed MyCiTi bus routes to Atlantis and surrounding areas. Public transport improvement initiative.",
+                    EventDate = DateTime.Now.AddDays(11),
+                    Location = "Civic Centre, 12 Hertzog Boulevard, Cape Town CBD",
+                    Priority = 2,
+                    IsFeatured = true,
+                    AttendeeCount = 190,
+                    Tags = new HashSet<string> { "transport", "myciti", "consultation", "cbd" }
+                },
+                new Event
+                {
+                    Title = "Newlands Fire Station Open Day",
+                    Category = "Emergency Services",
+                    Description = "Meet firefighters, see emergency equipment, and learn fire safety for your home. Kids activities and demonstrations.",
+                    EventDate = DateTime.Now.AddDays(10),
+                    Location = "Newlands Fire Station, Main Road",
+                    Priority = 3,
+                    IsFeatured = false,
+                    AttendeeCount = 220,
+                    Tags = new HashSet<string> { "fire", "safety", "emergency", "newlands" }
                 }
-            };
+                };
 
             // Add all events to data structures
             foreach (var evt in events)

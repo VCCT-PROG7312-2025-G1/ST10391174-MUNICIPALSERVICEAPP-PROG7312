@@ -1,5 +1,7 @@
 ﻿// Municipal Services Application - Events Page JavaScript
 // POE Part 2: Local Events and Announcements with Advanced Data Structures
+//chatgpt was used to research different animations and transitions using javascript
+//
 
 var EventsPage = {
     searchTimeout: null,
@@ -204,6 +206,7 @@ var EventsPage = {
 };
 
 // Apply recent search
+//chatgpt used to create this function 
 function applyRecentSearch(searchTerm) {
     const searchInput = document.getElementById('searchQueryInput');
     if (searchInput) {

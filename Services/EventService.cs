@@ -71,7 +71,7 @@ namespace MunicipalServiceApp_PROG7312.Services
         {
             InitializeSampleEvents();
         }
-
+        //chatgpt used here to create new events 
         private static void InitializeSampleEvents()
         {
             var events = new List<Event>
@@ -320,7 +320,7 @@ namespace MunicipalServiceApp_PROG7312.Services
 
         /// <summary>
         /// Organize events by date using SortedDictionary
-        /// Demonstrates SortedDictionary operations (15 marks)
+        /// Demonstrates SortedDictionary operations 
         /// </summary>
         public static SortedDictionary<DateTime, List<Event>> OrganizeEventsByDate(List<Event> events)
         {
@@ -341,7 +341,7 @@ namespace MunicipalServiceApp_PROG7312.Services
 
         /// <summary>
         /// Get featured/priority events using Priority Queue
-        /// Demonstrates Priority Queue operations (15 marks)
+        /// Demonstrates Priority Queue operations 
         /// </summary>
         public static List<Event> GetFeaturedEvents(int count = 5)
         {
@@ -372,7 +372,7 @@ namespace MunicipalServiceApp_PROG7312.Services
 
         /// <summary>
         /// Track search using Queue (FIFO) and Stack (LIFO)
-        /// Demonstrates Queue and Stack operations (15 marks each)
+        /// Demonstrates Queue and Stack operations
         /// </summary>
         public static void TrackSearch(string searchTerm)
         {
@@ -429,7 +429,8 @@ namespace MunicipalServiceApp_PROG7312.Services
         /// <summary>
         /// Advanced recommendation algorithm based on search patterns
         /// Analyzes user behavior and suggests relevant events
-        /// Demonstrates complex algorithm implementation (30 marks)
+        /// Demonstrates complex algorithm implementation 
+        /// chatgpt used to guide implement complex algorithm
         /// </summary>
         public static List<Event> GetRecommendations(string? currentSearch, string? currentCategory, int count = 6)
         {
@@ -512,6 +513,7 @@ namespace MunicipalServiceApp_PROG7312.Services
         /// <summary>
         /// Get related events based on tags (Set operations)
         /// Demonstrates Set intersection and union
+        /// chatgpt used for set intersection and union
         /// </summary>
         public static List<Event> GetRelatedEvents(Event baseEvent, int count = 5)
         {

@@ -110,6 +110,7 @@ namespace MunicipalServiceApp_PROG7312.Controllers
 
         /// <summary>
         /// Create new event form
+        /// used chatgpt to create this method for me 
         /// </summary>
         [HttpGet]
         public IActionResult CreateEvent()
@@ -217,6 +218,7 @@ namespace MunicipalServiceApp_PROG7312.Controllers
 
         /// <summary>
         /// Update event
+        /// used chatgpt to help me create this method
         /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]

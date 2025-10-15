@@ -223,6 +223,7 @@ namespace MunicipalServiceApp_PROG7312.Controllers
         /// <summary>
         /// Local Events and Announcements - POE Part 2
         /// Demonstrates advanced data structures and recommendation engine
+        /// claude was used to demonstrate how to used advanced data structures
         /// </summary>
         [HttpGet]
         public IActionResult LocalEvents(string searchQuery, string category, DateTime? startDate, DateTime? endDate)
@@ -259,6 +260,7 @@ namespace MunicipalServiceApp_PROG7312.Controllers
 
         /// <summary>
         /// AJAX endpoint for real-time recommendations
+        /// Chatgpt was used in order to create this method that gets event recommendations
         /// </summary>
         [HttpGet]
         public IActionResult GetEventRecommendations(string searchQuery, string category)
@@ -305,6 +307,7 @@ namespace MunicipalServiceApp_PROG7312.Controllers
 
         /// <summary>
         /// Get search statistics
+        /// used claude AI to guide on how to get search statistics
         /// </summary>
         [HttpGet]
         public IActionResult GetEventStatistics()

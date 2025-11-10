@@ -1,0 +1,306 @@
+﻿@model MunicipalServiceApp_PROG7312.Models.TrackRequestViewModel
+
+@{
+    ViewBag.Title = "Track Request - " + Model.Request?.RequestId;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container py-5">
+    <div class="row">
+        <!-- Back Button -->
+        <div class="col-12 mb-3">
+            <a href="@Url.Action("ServiceStatus")" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-2"></i>Back to All Requests
+            </a>
+        </div>
+
+        <!-- Main Request Details -->
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-header" style="background: linear-gradient(135deg, #667eea, #764ba2);">
+                    <div class="row align-items-center text-white">
+                        <div class="col-md-8">
+                            <h4 class="mb-1">@Model.Request?.Title</h4>
+                            <p class="mb-0 opacity-75">
+                                <i class="fas fa-hashtag"></i> @Model.Request?.RequestId
+                            </p>
+                        </div>
+                        <div class="col-md-4 text-end">
+                            @{
+                                var statusClass = Model.Request?.Status switch
+                                {
+                                    RequestStatus.Completed => "success",
+                                    RequestStatus.InProgress => "info",
+                                    RequestStatus.Assigned => "primary",
+                                    RequestStatus.Submitted => "warning",
+                                    _ => "secondary"
+                                };
+                            }
+                            <span class="badge bg-@statusClass fs-6">
+                                @Model.Request?.Status
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body p-4">
+                    <!-- Progress Bar -->
+                    <div class="mb-4">
+                        <div class="d-flex justify-content-between mb-2">
+                            <strong>Completion Progress</strong>
+                            <span class="text-primary fw-bold">@Model.ProgressPercentage%</span>
+                        </div>
+                        <div class="progress" style="height: 20px;">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated"
+                                 role="progressbar"
+                                 style="width: @Model.ProgressPercentage%"
+                                 aria-valuenow="@Model.ProgressPercentage"
+                                 aria-valuemin="0"
+                                 aria-valuemax="100">
+                                @Model.ProgressPercentage%
+                            </div>
+                        </div>
+                        @if (Model.Request?.Status != RequestStatus.Completed && Model.EstimatedDaysToCompletion > 0)
+                        {
+                            <small class="text-muted mt-2 d-block">
+                                <i class="fas fa-clock me-1"></i>
+                                Estimated completion: ~@Model.EstimatedDaysToCompletion days
+                            </small>
+                        }
+                    </div>
+
+                    <!-- Request Details -->
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <div class="detail-item mb-3">
+                                <small class="text-muted d-block">Category</small>
+                                <span class="badge bg-secondary">@Model.Request?.Category</span>
+                            </div>
+                            <div class="detail-item mb-3">
+                                <small class="text-muted d-block">Priority</small>
+                                @{
+                                    var priorityClass = Model.Request?.Priority switch
+                                    {
+                                        RequestPriority.Critical => "danger",
+                                        RequestPriority.High => "warning",
+                                        RequestPriority.Medium => "info",
+                                        _ => "secondary"
+                                    };
+                                }
+                                <span class="badge bg-@priorityClass">@Model.Request?.Priority</span>
+                            </div>
+                            <div class="detail-item mb-3">
+                                <small class="text-muted d-block">Location</small>
+                                <strong>
+                                    <i class="fas fa-map-marker-alt text-danger me-1"></i>
+                                    @Model.Request?.Location
+                                </strong>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="detail-item mb-3">
+                                <small class="text-muted d-block">Date Submitted</small>
+                                <strong>@Model.Request?.DateSubmitted.ToString("MMMM dd, yyyy HH:mm")</strong>
+                            </div>
+                            @if (Model.Request?.AssignedDepartment != null)
+                            {
+                                <div class="detail-item mb-3">
+                                    <small class="text-muted d-block">Assigned Department</small>
+                                    <strong>@Model.Request.AssignedDepartment</strong>
+                                </div>
+                            }
+                            @if (Model.Request?.AssignedTo != null)
+                            {
+                                <div class="detail-item mb-3">
+                                    <small class="text-muted d-block">Assigned To</small>
+                                    <strong>@Model.Request.AssignedTo</strong>
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="mb-4">
+                        <h6 class="mb-2">Description</h6>
+                        <p class="text-muted">@Model.Request?.Description</p>
+                    </div>
+
+                    <!-- Status Timeline -->
+                    <div>
+                        <h6 class="mb-3">
+                            <i class="fas fa-history me-2"></i>Status Timeline
+                        </h6>
+                        <div class="timeline">
+                            @foreach (var update in Model.Timeline)
+                            {
+                                <div class="timeline-item">
+                                    <div class="timeline-marker"></div>
+                                    <div class="timeline-content">
+                                        <div class="d-flex justify-content-between">
+                                            <strong>@update.Status</strong>
+                                            <small class="text-muted">
+                                                @update.Timestamp.ToString("MMM dd, yyyy HH:mm")
+                                            </small>
+                                        </div>
+                                        @if (!string.IsNullOrEmpty(update.Notes))
+                                        {
+                                            <p class="mb-0 text-muted small">@update.Notes</p>
+                                        }
+                                        @if (!string.IsNullOrEmpty(update.UpdatedBy))
+                                        {
+                                            <small class="text-muted">by @update.UpdatedBy</small>
+                                        }
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Related Requests (Graph Relationships) -->
+            @if (Model.RelatedRequests.Any())
+            {
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header bg-white">
+                        <h6 class="mb-0">
+                            <i class="fas fa-project-diagram me-2"></i>
+                            Related Requests (Graph Dependencies)
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        @foreach (var related in Model.RelatedRequests)
+                        {
+                            <div class="related-request-item mb-3 p-3 border rounded">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div>
+                                        <h6 class="mb-1">@related.Title</h6>
+                                        <small class="text-muted d-block">
+                                            <i class="fas fa-hashtag"></i> @related.RequestId
+                                        </small>
+                                        <small class="text-muted">
+                                            <i class="fas fa-map-marker-alt"></i> @related.Location
+                                        </small>
+                                    </div>
+                                    <div class="text-end">
+                                        <span class="badge bg-secondary mb-2">@related.Status</span>
+                                        <br />
+                                        <a href="@Url.Action("TrackRequest", new { id = related.RequestId })"
+                                           class="btn btn-sm btn-outline-primary">
+                                            <i class="fas fa-eye"></i> View
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-lg-4">
+            <!-- Quick Actions -->
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-header bg-white">
+                    <h6 class="mb-0">
+                        <i class="fas fa-bolt me-2"></i>Quick Actions
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-outline-primary" onclick="shareRequest()">
+                            <i class="fas fa-share-alt me-2"></i>Share Request
+                        </button>
+                        <button class="btn btn-outline-info" onclick="printRequest()">
+                            <i class="fas fa-print me-2"></i>Print Details
+                        </button>
+                        <button class="btn btn-outline-success" onclick="exportRequest()">
+                            <i class="fas fa-download me-2"></i>Export to PDF
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Similar Requests (BST Search) -->
+            @if (Model.SimilarRequests.Any())
+            {
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-header bg-white">
+                        <h6 class="mb-0">
+                            <i class="fas fa-search me-2"></i>Similar Requests (BST Search)
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        @foreach (var similar in Model.SimilarRequests)
+                        {
+                            <div class="mb-3 pb-3 border-bottom">
+                                <h6 class="small mb-1">@similar.Title</h6>
+                                <small class="text-muted d-block">
+                                    @similar.RequestId • @similar.Status
+                                </small>
+                                <a href="@Url.Action("TrackRequest", new { id = similar.RequestId })"
+                                   class="small text-primary">
+                                    View Details <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+
+            <!-- Data Structure Info -->
+            <div class="card border-0" style="background: linear-gradient(135deg, #667eea, #764ba2);">
+                <div class="card-body text-white">
+                    <h6 class="mb-3">
+                        <i class="fas fa-database me-2"></i>Data Structure Features
+                    </h6>
+                    <ul class="list-unstyled small mb-0">
+                        <li class="mb-2">
+                            <i class="fas fa-check-circle me-2"></i>
+                            BST for efficient request lookup
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-check-circle me-2"></i>
+                            Graph for dependency tracking
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-check-circle me-2"></i>
+                            AVL Tree for date-based indexing
+                        </li>
+                        <li class="mb-0">
+                            <i class="fas fa-check-circle me-2"></i>
+                            Heap for priority processing
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function shareRequest() {
+        const requestId = '@Model.Request?.RequestId';
+        const url = window.location.href;
+
+        if (navigator.share) {
+            navigator.share({
+                title: 'Service Request ' + requestId,
+                text: 'Check out this service request status',
+                url: url
+            });
+        } else {
+            navigator.clipboard.writeText(url);
+            alert('Link copied to clipboard!');
+        }
+    }
+
+    function printRequest() {
+        window.print();
+    }
+
+    function exportRequest() {
+        alert('PDF export functionality will generate a detailed report of this service request.');
+    }
+</script>

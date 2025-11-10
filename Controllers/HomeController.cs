@@ -80,16 +80,16 @@ namespace MunicipalServiceApp_PROG7312.Controllers
                         issue.AttachedFilePath = fileName;
                     }
 
-                    // Store using LinkedList (as per POE requirements)
+                    // Store using LinkedList (Part 1 requirement)
                     _issueLinkedList.AddLast(issue);
-
-                    // Add to Stack for recent tracking
                     _recentIssuesStack.Push(issue);
-
-                    // Add to Queue for processing order
                     _processingQueue.Enqueue(issue);
 
-                    TempData["SuccessMessage"] = $"Issue submitted successfully! Issue ID: {issue.IssueId}";
+                    // ? NEW: Also add to Service Request system (Part 3)
+                    var serviceRequest = ConvertIssueToServiceRequest(issue);
+                    ServiceRequestService.AddServiceRequest(serviceRequest);
+
+                    TempData["SuccessMessage"] = $"Issue submitted successfully! Request ID: {issue.IssueId}";
 
                     return RedirectToAction("IssueSubmitted", new { id = issue.IssueId });
                 }
@@ -103,6 +103,45 @@ namespace MunicipalServiceApp_PROG7312.Controllers
             return View(model);
         }
 
+        // ? NEW: Add this helper method to HomeController.cs
+        private ServiceRequest ConvertIssueToServiceRequest(Issue issue)
+        {
+            // Map Priority based on keywords
+            var priority = RequestPriority.Medium; // Default
+            var description = (issue.Description ?? "").ToLower();
+
+            if (description.Contains("emergency") || description.Contains("urgent") ||
+                description.Contains("critical") || description.Contains("danger"))
+            {
+                priority = RequestPriority.Critical;
+            }
+            else if (description.Contains("important") || description.Contains("asap"))
+            {
+                priority = RequestPriority.High;
+            }
+            else if (description.Contains("minor") || description.Contains("whenever"))
+            {
+                priority = RequestPriority.Low;
+            }
+
+            var serviceRequest = new ServiceRequest
+            {
+                RequestId = issue.IssueId, // Use same ID for tracking
+                Title = $"{issue.Category} - {issue.Location}",
+                Category = issue.Category,
+                Description = issue.Description,
+                Location = issue.Location,
+                Status = RequestStatus.Submitted,
+                Priority = priority,
+                DateSubmitted = issue.DateReported,
+                AttachmentPath = issue.AttachedFilePath ?? string.Empty,
+                CitizenId = "CITIZEN_" + DateTime.Now.Ticks // Generate citizen ID
+            };
+
+            return serviceRequest;
+        }
+
+
         public IActionResult IssueSubmitted(string id)
         {
             var issue = GetIssueById(id);
@@ -115,6 +154,10 @@ namespace MunicipalServiceApp_PROG7312.Controllers
             ViewBag.CategoryCount = CountIssuesInCategory(issue.Category);
             ViewBag.LastSubmitted = _recentIssuesStack.Count > 0 ? _recentIssuesStack.Peek().IssueId : "None";
             ViewBag.NextForProcessing = _processingQueue.Count > 0 ? _processingQueue.Peek().IssueId : "None";
+
+            // ? NEW: Add tracking link info
+            ViewBag.CanTrackRequest = true;
+            ViewBag.TrackingUrl = Url.Action("TrackRequest", "Home", new { id = issue.IssueId });
 
             return View();
         }
@@ -343,12 +386,195 @@ namespace MunicipalServiceApp_PROG7312.Controllers
 
             return Json(new { success = true });
         }
+     
+// Main status page with search/filter
+        /// <summary>
+        /// Service Request Status Page - POE Part 3
+        /// Demonstrates BST, AVL Tree, Heaps, and Graphs
+        /// </summary>
+[HttpGet]
+        public IActionResult ServiceStatus(string searchQuery, string filterStatus,
+    string filterCategory, RequestPriority? filterPriority)
+        {
+            var model = new ServiceRequestStatusViewModel
+            {
+                SearchQuery = searchQuery,
+                FilterStatus = filterStatus,
+                FilterCategory = filterCategory,
+                FilterPriority = filterPriority
+            };
 
+            // Get all requests using BST traversal
+            model.AllRequests = ServiceRequestService.GetAllRequests();
+
+            // Apply filters using BST search
+            model.FilteredRequests = ServiceRequestService.SearchRequests(
+                searchQuery, filterStatus, filterCategory, filterPriority);
+
+            // Get statistics
+            model.TotalRequests = ServiceRequestService.GetTotalRequests();
+            model.PendingRequests = ServiceRequestService.GetPendingRequests();
+            model.CompletedRequests = ServiceRequestService.GetCompletedRequests();
+            model.InProgressRequests = model.AllRequests.Count(r =>
+                r.Status == RequestStatus.InProgress);
+
+            // Group by status using tree traversal
+            model.RequestsByStatus = ServiceRequestService.GetRequestCountByStatus();
+
+            // Group by category
+            model.RequestsByCategory = ServiceRequestService.GetRequestCountByCategory();
+
+            // Get dependency graph for visualization
+            model.DependencyGraph = ServiceRequestService.GetAllDependencies();
+
+            // Build related requests tree
+            foreach (var request in model.FilteredRequests)
+            {
+                var related = ServiceRequestService.GetRelatedRequests(request.RequestId);
+                if (related.Any())
+                {
+                    model.RelatedRequestsTree[request.RequestId] = related;
+                }
+            }
+
+            return View(model);
+        }
+
+        /// <summary>
+        /// Track specific request with detailed information
+        /// </summary>
+        [HttpGet]
+        public IActionResult TrackRequest(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                TempData["ErrorMessage"] = "Please provide a valid request ID.";
+                return RedirectToAction("ServiceStatus");
+            }
+
+            var request = ServiceRequestService.GetRequestById(id);
+            if (request == null)
+            {
+                TempData["ErrorMessage"] = $"Request '{id}' not found.";
+                return RedirectToAction("ServiceStatus");
+            }
+
+            var model = new TrackRequestViewModel
+            {
+                Request = request,
+                RelatedRequests = ServiceRequestService.GetRelatedRequests(id),
+                Timeline = request.StatusHistory.OrderBy(s => s.Timestamp).ToList(),
+                ProgressPercentage = request.GetCompletionProgress()
+            };
+
+            // Calculate estimated completion time
+            if (request.Status != RequestStatus.Completed)
+            {
+                var avgCompletionDays = ServiceRequestService.GetAverageCompletionTime();
+                var daysSinceSubmission = (DateTime.Now - request.DateSubmitted).TotalDays;
+                model.EstimatedDaysToCompletion = Math.Max(0,
+                    (int)(avgCompletionDays - daysSinceSubmission));
+            }
+
+            // Find similar requests using BST search
+            model.SimilarRequests = ServiceRequestService.SearchRequests(
+                null, null, request.Category, null)
+                .Where(r => r.RequestId != id)
+                .Take(5)
+                .ToList();
+
+            return View(model);
+        }
+        /// <summary>
+        /// Get high priority requests using Min Heap
+        /// </summary>
+        [HttpGet]
+        public IActionResult GetPriorityRequests(int count = 10)
+        {
+            var priorityRequests = ServiceRequestService.GetHighPriorityRequests(count);
+
+            return Json(new
+            {
+                success = true,
+                requests = priorityRequests.Select(r => new
+                {
+                    requestId = r.RequestId,
+                    title = r.Title,
+                    category = r.Category,
+                    priority = r.Priority.ToString(),
+                    status = r.Status.ToString(),
+                    dateSubmitted = r.DateSubmitted.ToString("yyyy-MM-dd HH:mm"),
+                    location = r.Location
+                })
+            });
+        }
+
+        /// <summary>
+        /// Get request statistics
+        /// </summary>
+        [HttpGet]
+        public IActionResult GetServiceStatistics()
+        {
+            var stats = new
+            {
+                total = ServiceRequestService.GetTotalRequests(),
+                pending = ServiceRequestService.GetPendingRequests(),
+                completed = ServiceRequestService.GetCompletedRequests(),
+                averageCompletionDays = ServiceRequestService.GetAverageCompletionTime(),
+                byStatus = ServiceRequestService.GetRequestCountByStatus(),
+                byCategory = ServiceRequestService.GetRequestCountByCategory()
+            };
+
+            return Json(new { success = true, statistics = stats });
+        }
+        /// <summary>
+        /// Search requests by date range using AVL Tree
+        /// </summary>
+        [HttpGet]
+        public IActionResult SearchByDateRange(DateTime startDate, DateTime endDate)
+        {
+            var requests = ServiceRequestService.GetRequestsByDateRange(startDate, endDate);
+
+            return Json(new
+            {
+                success = true,
+                count = requests.Count,
+                requests = requests.Select(r => new
+                {
+                    requestId = r.RequestId,
+                    title = r.Title,
+                    dateSubmitted = r.DateSubmitted.ToString("yyyy-MM-dd"),
+                    status = r.Status.ToString()
+                })
+            });
+        }
+
+        /// <summary>
+        /// Get dependency graph data for visualization
+        /// </summary>
+        [HttpGet]
+        public IActionResult GetDependencyGraph()
+        {
+            var dependencies = ServiceRequestService.GetAllDependencies();
+
+            return Json(new
+            {
+                success = true,
+                dependencies = dependencies.Select(d => new
+                {
+                    from = d.FromRequestId,
+                    to = d.ToRequestId,
+                    type = d.Type.ToString()
+                })
+            });
+        }
         // Helper class for search tracking
         public class SearchTrackingRequest
         {
             public string? SearchTerm { get; set; }
             public string? Category { get; set; }
         }
+
+
     }
 }

@@ -1,0 +1,327 @@
+﻿@model MunicipalServiceApp_PROG7312.Models.ServiceRequestStatusViewModel
+
+@{
+    ViewBag.Title = "Service Request Status - POE Part 3";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Hero Header with Gradient -->
+<div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 3rem 0; margin-bottom: 2rem;">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h1 class="text-white mb-2" style="font-weight: 800;">
+                    <i class="fas fa-chart-line me-2"></i>Service Request Status
+                </h1>
+                <p class="text-white-50 mb-0" style="font-size: 1.1rem;">
+                    Track and manage municipal service requests efficiently
+                </p>
+                <small class="text-white-50 d-block mt-2">
+                    <i class="fas fa-database me-1"></i>Powered by BST, AVL Trees, Heaps & Graphs
+                </small>
+            </div>
+            <div class="col-md-4">
+                <div class="row g-2">
+                    <div class="col-6">
+                        <div class="bg-white rounded p-2 text-center shadow-sm">
+                            <h4 class="text-primary mb-0">@Model.TotalRequests</h4>
+                            <small class="text-muted">Total</small>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="bg-white rounded p-2 text-center shadow-sm">
+                            <h4 class="text-warning mb-0">@Model.PendingRequests</h4>
+                            <small class="text-muted">Pending</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container pb-5">
+    <!-- Search and Filter Section -->
+    <div class="card mb-4 border-0 shadow-sm">
+        <div class="card-body p-4">
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <h5><i class="fas fa-search me-2 text-primary"></i>Search & Filter</h5>
+                </div>
+                <div class="col-md-6 text-end">
+                    <button class="btn btn-sm btn-outline-info" onclick="showDataStructuresInfo()">
+                        <i class="fas fa-info-circle me-1"></i>View Data Structures
+                    </button>
+                </div>
+            </div>
+
+            @using (Html.BeginForm("ServiceStatus", "Home", FormMethod.Get, new { @class = "search-form" }))
+            {
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <label class="form-label small fw-bold">Search by ID or Keyword</label>
+                        @Html.TextBox("searchQuery", Model.SearchQuery, new {
+                        @class = "form-control",
+                                        @placeholder = "Enter request ID, title, or location"
+                                        })
+                </div>
+
+                <div class="col-md-3">
+                    <label class="form-label small fw-bold">Status</label>
+                    @Html.DropDownList("filterStatus",
+                                        new SelectList(Enum.GetValues(typeof(RequestStatus))),
+                                        "All Statuses",
+                                        new { @class = "form-select" })
+                </div>
+
+                <div class="col-md-3">
+                    <label class="form-label small fw-bold">Category</label>
+                    @Html.DropDownList("filterCategory",
+                                        new SelectList(Model.RequestsByCategory.Keys),
+                                        "All Categories",
+                                        new { @class = "form-select" })
+                </div>
+
+                <div class="col-md-2">
+                    <label class="form-label small fw-bold">Priority</label>
+                    @Html.DropDownList("filterPriority",
+                                        new SelectList(Enum.GetValues(typeof(RequestPriority))),
+                                        "All",
+                                        new { @class = "form-select" })
+                </div>
+
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-search me-2"></i>Search
+                    </button>
+                    <a href="@Url.Action("ServiceStatus")" class="btn btn-outline-secondary">
+                        <i class="fas fa-redo me-2"></i>Reset
+                    </a>
+                </div>
+            </div>
+                        }
+        </div>
+    </div>
+
+    <!-- Statistics Dashboard -->
+    <div class="row g-4 mb-4">
+        <div class="col-md-3">
+            <div class="stat-card" style="background: linear-gradient(135deg, #667eea, #764ba2);">
+                <div class="text-white">
+                    <h2 class="mb-1">@Model.TotalRequests</h2>
+                    <p class="mb-0">Total Requests</p>
+                    <small class="opacity-75">All time</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card" style="background: linear-gradient(135deg, #f093fb, #f5576c);">
+                <div class="text-white">
+                    <h2 class="mb-1">@Model.PendingRequests</h2>
+                    <p class="mb-0">Pending</p>
+                    <small class="opacity-75">Awaiting action</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card" style="background: linear-gradient(135deg, #4facfe, #00f2fe);">
+                <div class="text-white">
+                    <h2 class="mb-1">@Model.InProgressRequests</h2>
+                    <p class="mb-0">In Progress</p>
+                    <small class="opacity-75">Being worked on</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card" style="background: linear-gradient(135deg, #43e97b, #38f9d7);">
+                <div class="text-white">
+                    <h2 class="mb-1">@Model.CompletedRequests</h2>
+                    <p class="mb-0">Completed</p>
+                    <small class="opacity-75">Successfully resolved</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="row">
+        <!-- Requests List -->
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-white border-0">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">
+                            <i class="fas fa-list me-2"></i>Service Requests
+                        </h5>
+                        <span class="badge bg-primary">@Model.FilteredRequests.Count Results</span>
+                    </div>
+                </div>
+                <div class="card-body p-0">
+                    @if (Model.FilteredRequests.Any())
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Request ID</th>
+                                        <th>Title</th>
+                                        <th>Category</th>
+                                        <th>Status</th>
+                                        <th>Priority</th>
+                                        <th>Date</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var request in Model.FilteredRequests)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <code class="text-primary">@request.RequestId</code>
+                                            </td>
+                                            <td>
+                                                <strong>@request.Title</strong>
+                                                <br />
+                                                <small class="text-muted">
+                                                    <i class="fas fa-map-marker-alt"></i> @request.Location
+                                                </small>
+                                            </td>
+                                            <td>
+                                                <span class="badge bg-secondary">@request.Category</span>
+                                            </td>
+                                            <td>
+                                                @{
+                                                    var statusClass = request.Status switch
+                                                    {
+                                                        RequestStatus.Completed => "success",
+                                                        RequestStatus.InProgress => "info",
+                                                        RequestStatus.Assigned => "primary",
+                                                        RequestStatus.Submitted => "warning",
+                                                        RequestStatus.UnderReview => "secondary",
+                                                        _ => "danger"
+                                                    };
+                                                }
+                                                <span class="badge bg-@statusClass">@request.Status</span>
+                                            </td>
+                                            <td>
+                                                @{
+                                                    var priorityClass = request.Priority switch
+                                                    {
+                                                        RequestPriority.Critical => "danger",
+                                                        RequestPriority.High => "warning",
+                                                        RequestPriority.Medium => "info",
+                                                        _ => "secondary"
+                                                    };
+                                                }
+                                                <span class="badge bg-@priorityClass">@request.Priority</span>
+                                            </td>
+                                            <td>
+                                                <small>@request.DateSubmitted.ToString("MMM dd, yyyy")</small>
+                                            </td>
+                                            <td>
+                                                <a href="@Url.Action("TrackRequest", new { id = request.RequestId })"
+                                                   class="btn btn-sm btn-outline-primary">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="text-center py-5">
+                            <i class="fas fa-inbox fa-4x text-muted mb-3"></i>
+                            <h5 class="text-muted">No Requests Found</h5>
+                            <p class="text-muted">Try adjusting your search criteria</p>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar: Analytics -->
+        <div class="col-lg-4">
+            <!-- Status Distribution -->
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-header bg-white">
+                    <h6 class="mb-0">
+                        <i class="fas fa-chart-pie me-2"></i>Status Distribution
+                    </h6>
+                </div>
+                <div class="card-body">
+                    @foreach (var status in Model.RequestsByStatus.OrderByDescending(s => s.Value))
+                    {
+                        var percentage = Model.TotalRequests > 0
+                        ? (status.Value * 100.0 / Model.TotalRequests)
+                        : 0;
+
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between mb-1">
+                                <small class="fw-bold">@status.Key</small>
+                                <small class="text-muted">@status.Value (@percentage.ToString("F1")%)</small>
+                            </div>
+                            <div class="progress" style="height: 8px;">
+                                <div class="progress-bar" style="width: @percentage%"></div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <!-- Category Distribution -->
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-header bg-white">
+                    <h6 class="mb-0">
+                        <i class="fas fa-tags me-2"></i>Top Categories
+                    </h6>
+                </div>
+                <div class="card-body">
+                    @foreach (var category in Model.RequestsByCategory.OrderByDescending(c => c.Value).Take(5))
+                    {
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <small>@category.Key</small>
+                            <span class="badge bg-primary">@category.Value</span>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <!-- Data Structures Info -->
+            <div class="card border-0 shadow-sm" style="background: linear-gradient(135deg, #667eea, #764ba2);">
+                <div class="card-body text-white">
+                    <h6 class="mb-3">
+                        <i class="fas fa-database me-2"></i>Part 3 Implementation
+                    </h6>
+                    <div class="d-flex flex-wrap gap-1 mb-3">
+                        <span class="badge bg-light text-dark">BST</span>
+                        <span class="badge bg-light text-dark">AVL Tree</span>
+                        <span class="badge bg-light text-dark">Min Heap</span>
+                        <span class="badge bg-light text-dark">Graphs</span>
+                        <span class="badge bg-light text-dark">Tree Traversal</span>
+                    </div>
+                    <p class="small mb-0 opacity-75">
+                        Advanced data structures ensure O(log n) search efficiency
+                        and optimal priority-based processing.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    function showDataStructuresInfo() {
+        alert('Part 3 Data Structures:\n\n' +
+            '✓ Binary Search Tree (BST): Fast request lookup\n' +
+            '✓ AVL Tree: Balanced date-based indexing\n' +
+            '✓ Min Heap: Priority queue for urgent requests\n' +
+            '✓ Graph: Request dependencies and relationships\n' +
+            '✓ Tree Traversal: Efficient data retrieval\n\n' +
+            'All operations optimized for O(log n) complexity!');
+    }
+</script>

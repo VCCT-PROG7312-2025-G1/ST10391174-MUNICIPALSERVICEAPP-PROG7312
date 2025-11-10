@@ -1012,3 +1012,69 @@ select.form-select {
 .bg-gradient-warning {
     background: linear-gradient(135deg, #ffd93d, #f9ca24) !important;
 }
+
+
+.timeline {
+    position: relative;
+    padding-left: 30px;
+}
+
+.timeline-item {
+    position: relative;
+    padding-bottom: 20px;
+    border-left: 2px solid #e9ecef;
+}
+
+    .timeline-item:last-child {
+        border-left: none;
+        padding-bottom: 0;
+    }
+
+.timeline-marker {
+    position: absolute;
+    left: -6px;
+    top: 0;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #667eea;
+    border: 2px solid white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.timeline-content {
+    padding-left: 20px;
+    padding-bottom: 15px;
+}
+
+.related-request-item {
+    transition: all 0.3s;
+}
+
+    .related-request-item:hover {
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        transform: translateY(-2px);
+    }
+
+
+
+.stat-card {
+    padding: 1.5rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+
+.table tbody tr {
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+    .table tbody tr:hover {
+        background-color: #f8f9fa;
+    }
+

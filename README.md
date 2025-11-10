@@ -270,12 +270,11 @@ App runs at: https://localhost:[port]/
 
 ---
 Part 3: Service Request Status (NEW)
-
-Core Functionality:
+Core Functionality
 
 Service Request Tracking: Displays all submitted service requests and their statuses.
 
-Search by Request ID: Uses Binary Search Tree (BST) for efficient lookups.
+Search by Request ID: Uses a Binary Search Tree (BST) for efficient lookups.
 
 Priority Sorting: Requests are ranked using a Min-Heap, ensuring high-priority cases are addressed first.
 
@@ -289,61 +288,55 @@ Dynamic Dashboard: Displays all current and resolved service requests, categoriz
 
 Data Structures Utilized
 Part 3 Data Structures
-
-Binary Search Tree (BST)
+1. Binary Search Tree (BST)
 
 Purpose: Enables fast lookup of service requests by ID.
-
 Implementation: BinarySearchTree<ServiceRequest> with recursive insert and search operations.
-
 Benefit: Logarithmic search time for large datasets.
-
 Example: Finding a specific request by tracking its ID through the BST nodes.
 
-AVL Tree
+2. AVL Tree
 
 Purpose: Self-balancing version of BST to prevent skewed trees and maintain performance.
-
 Implementation: Balancing rotations (LL, RR, LR, RL) after insertions.
-
 Benefit: Keeps search, insert, and delete operations in O(log n) time.
 
-Heap (Min-Heap)
+3. Heap (Min-Heap)
 
 Purpose: Prioritizes service requests based on urgency or date.
-
 Implementation: PriorityQueue<ServiceRequest, int> with priority values.
-
 Benefit: Ensures the most urgent requests are processed first.
 
-Graph
+4. Graph
 
 Purpose: Models relationships between dependent services (e.g., sanitation and roads).
-
 Implementation: Adjacency list using Dictionary<string, List<string>>.
-
 Benefit: Efficiently tracks service dependencies.
 
-Graph Traversal (BFS and DFS)
+5. Graph Traversal (BFS and DFS)
 
 Purpose: Displays connected service tasks and their current progress.
-
 Benefit: Enables tracking of dependent service workflows in real-time.
 
-Minimum Spanning Tree (Kruskal’s Algorithm)
+6. Minimum Spanning Tree (Kruskal’s Algorithm)
 
 Purpose: Optimizes municipal communication routes between departments.
-
 Benefit: Reduces redundancy and ensures efficient collaboration.
 
 Technical Specifications
 
 Framework: ASP.NET Core (.NET 6/7/8)
+
 Language: C#
+
 Frontend: HTML5, CSS3, Bootstrap 5, Custom CSS
+
 JavaScript: Vanilla JS
+
 Architecture: MVC (Model-View-Controller)
+
 Database: In-memory + file storage (expandable to SQL Server)
+
 Authentication: Session-based admin login system
 
 How the Service Request Status Works

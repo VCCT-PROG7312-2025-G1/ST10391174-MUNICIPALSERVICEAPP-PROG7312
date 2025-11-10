@@ -270,7 +270,8 @@ App runs at: https://localhost:[port]/
 
 ---
 Part 3: Service Request Status (NEW)
-Core Functionality
+
+Core Functionality:
 
 Service Request Tracking: Displays all submitted service requests and their statuses.
 
@@ -286,9 +287,10 @@ Optimized Routing: A Minimum Spanning Tree (MST) algorithm is used to model and 
 
 Dynamic Dashboard: Displays all current and resolved service requests, categorized by priority and status.
 
-📚 Data Structures Utilized
+Data Structures Utilized
 Part 3 Data Structures
-1. Binary Search Tree (BST)
+
+Binary Search Tree (BST)
 
 Purpose: Enables fast lookup of service requests by ID.
 
@@ -298,7 +300,7 @@ Benefit: Logarithmic search time for large datasets.
 
 Example: Finding a specific request by tracking its ID through the BST nodes.
 
-2. AVL Tree
+AVL Tree
 
 Purpose: Self-balancing version of BST to prevent skewed trees and maintain performance.
 
@@ -306,7 +308,7 @@ Implementation: Balancing rotations (LL, RR, LR, RL) after insertions.
 
 Benefit: Keeps search, insert, and delete operations in O(log n) time.
 
-3. Heap (Min-Heap)
+Heap (Min-Heap)
 
 Purpose: Prioritizes service requests based on urgency or date.
 
@@ -314,7 +316,7 @@ Implementation: PriorityQueue<ServiceRequest, int> with priority values.
 
 Benefit: Ensures the most urgent requests are processed first.
 
-4. Graph
+Graph
 
 Purpose: Models relationships between dependent services (e.g., sanitation and roads).
 
@@ -322,19 +324,19 @@ Implementation: Adjacency list using Dictionary<string, List<string>>.
 
 Benefit: Efficiently tracks service dependencies.
 
-5. Graph Traversal (BFS and DFS)
+Graph Traversal (BFS and DFS)
 
 Purpose: Displays connected service tasks and their current progress.
 
 Benefit: Enables tracking of dependent service workflows in real-time.
 
-6. Minimum Spanning Tree (Kruskal’s Algorithm)
+Minimum Spanning Tree (Kruskal’s Algorithm)
 
 Purpose: Optimizes municipal communication routes between departments.
 
 Benefit: Reduces redundancy and ensures efficient collaboration.
 
-🛠️ Technical Specifications
+Technical Specifications
 
 Framework: ASP.NET Core (.NET 6/7/8)
 Language: C#
@@ -344,9 +346,9 @@ Architecture: MVC (Model-View-Controller)
 Database: In-memory + file storage (expandable to SQL Server)
 Authentication: Session-based admin login system
 
-🧩 How the Service Request Status Works
+How the Service Request Status Works
 
-User submits a service request (via the Report Issues form).
+User submits a service request via the Report Issues form.
 
 The system inserts the request into:
 
@@ -362,7 +364,7 @@ Users can search by Request ID, view progress stages, and see connected dependen
 
 Data is stored and retrieved dynamically using C# generics and LINQ queries for fast lookups.
 
-📈 Implementation Insights
+Implementation Insights
 
 The BST and AVL structures ensure balanced, high-performance search operations.
 
@@ -372,7 +374,7 @@ Heaps maintain fairness in processing, ensuring urgent issues are not delayed.
 
 Graph traversal algorithms make the application scalable for large data volumes.
 
-🖥️ Usage Instructions
+Usage Instructions
 
 Launch the app and navigate to Service Request Status.
 
@@ -380,7 +382,7 @@ Enter your Service Request ID to check its progress.
 
 Admin users can manage and update request statuses through the Admin Portal.
 
-🧮 Project Summary
+Project Summary
 
 The final phase of this application transforms it into a comprehensive digital municipal management system, providing citizens with:
 
@@ -390,7 +392,7 @@ Real-time event access
 
 Request tracking and optimization through advanced data structures
 
-🔮 Future Enhancements
+Future Enhancements
 
 Integration with live municipal databases
 
